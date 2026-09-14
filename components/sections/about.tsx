@@ -2,13 +2,13 @@
 import { useScrollReveal } from "@/lib/useScrollReveal";
 
 const INFO = [
-  { k: "Status",     v: "● Open to Internship", green: true },
+  { k: "Status",     v: "● Open to Full-time (Oct 2026)", green: true },
   { k: "University", v: "ULBI Bandung" },
   { k: "Program",    v: "D3 Teknik Informatika" },
-  { k: "GPA",        v: "3.67 / 4.00" },
+  { k: "GPA",        v: "3.72 / 4.00" },
   { k: "Location",   v: "Bandung, Jawa Barat" },
-  { k: "Languages",  v: "Indonesian, English" },
-  { k: "Grad",       v: "September 2026" },
+  { k: "Languages",  v: "Indonesian (Native), English (Professional)" },
+  { k: "Contact",    v: "hilalabdulgani@gmail.com" },
 ];
 
 const TRAITS = ["Problem Solver", "Team Player", "Fast Learner", "Detail Oriented", "Open Source Enthusiast"];
@@ -39,18 +39,14 @@ export default function About() {
             color: "var(--text2)", marginTop: "1.5rem",
           }}>
             Saya adalah{" "}
-            <strong style={{ color: "var(--text)", fontWeight: 600 }}>mahasiswa D3 Teknik Informatika</strong>{" "}
-            tingkat akhir di Universitas Logistik dan Bisnis Internasional (ULBI), Bandung. Dengan IPK{" "}
-            <strong style={{ color: "var(--text)", fontWeight: 600 }}>3.67/4.00</strong>, saya fokus membangun
-            karir sebagai Full-Stack Developer dengan pemahaman mendalam di sisi back-end.
+            <strong style={{ color: "var(--text)", fontWeight: 600 }}>mahasiswa D3 Teknik Informatika ULBI</strong>{" "}
+            tingkat akhir (IPK{" "}
+            <strong style={{ color: "var(--text)", fontWeight: 600 }}>3.72/4.00</strong>, lulus Sep 2026 — menunggu wisuda) dengan spesialisasi{" "}
+            <strong style={{ color: "var(--text)", fontWeight: 600 }}>Full-Stack Web & Mobile</strong>.
             <br /><br />
-            Pengalaman mencakup pengembangan{" "}
-            <strong style={{ color: "var(--text)", fontWeight: 600 }}>web & mobile</strong> dari nol hingga
-            deployment — REST API dengan{" "}
-            <strong style={{ color: "var(--text)", fontWeight: 600 }}>Laravel & Node.js</strong>, aplikasi
-            cross-platform dengan{" "}
-            <strong style={{ color: "var(--text)", fontWeight: 600 }}>Flutter</strong>, hingga konfigurasi
-            Linux server dan keamanan infrastruktur dengan Podman, Firewall, dan IDS/IPS.
+            Terbukti membangun RESTful API, auth system (JWT/RBAC/OAuth), dan arsitektur <strong style={{ color: "var(--text)", fontWeight: 600 }}>Data Warehouse OLAP (Star Schema, ETL, HTAP)</strong> serta{" "}
+            <strong style={{ color: "var(--text)", fontWeight: 600 }}>distributed backend</strong> (Golang + Nginx Load Balancer + PostgreSQL Replication) untuk program distribusi pangan nasional. Saat ini sebagai{" "}
+            <strong style={{ color: "var(--text)", fontWeight: 600 }}>Mobile Developer Intern @ Maqdis Academy</strong> — slicing Figma ke Flutter (BLoC + Clean Architecture) dengan offline caching & background audio playback.
           </p>
 
           <div style={{ display: "flex", flexWrap: "wrap", gap: ".5rem", marginTop: "1.5rem" }}>

@@ -54,10 +54,9 @@ export default function Contact() {
           {/* Left: info + links */}
           <div className="reveal">
             <p style={{ fontSize: ".9rem", color: "var(--text2)", lineHeight: 1.8, marginBottom: "1.5rem" }}>
-              Saya sedang mencari kesempatan magang sebagai{" "}
-              <strong style={{ color: "var(--text)", fontWeight: 600 }}>Full-Stack Developer</strong> atau{" "}
-              <strong style={{ color: "var(--text)", fontWeight: 600 }}>Back-End Developer</strong>.
-              Jika kamu memiliki posisi yang sesuai, jangan ragu menghubungi saya!
+              Saya <strong style={{ color: "var(--text)", fontWeight: 600 }}>Fresh Graduate D3 Teknik Informatika (3.72/4.00)</strong>, tersedia <strong style={{ color: "var(--text)", fontWeight: 600 }}>full-time mulai Oktober 2026</strong> untuk posisi{" "}
+              <strong style={{ color: "var(--text)", fontWeight: 600 }}>Full-Stack / Mobile (Flutter) / Back-End Developer</strong>.
+              Open to on-site Bandung / Jabodetabek & remote. Response &lt;24 jam.
             </p>
 
             {/* Available badge */}

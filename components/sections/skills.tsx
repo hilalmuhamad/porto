@@ -2,12 +2,12 @@
 import { useScrollReveal } from "@/lib/useScrollReveal";
 
 const SKILLS = [
-  { icon: "⚙️", name: "Back-End Development",   desc: "Building robust, scalable server-side applications with clean architecture and secure APIs.",             tags: ["Laravel", "Node.js", "Express.js", "JWT", "RBAC", "Socket.IO"] },
-  { icon: "🎨", name: "Front-End Development",   desc: "Building fast, responsive, and scalable websites using the latest web technologies.",                    tags: ["React.js", "Next.js", "Flutter", "Tailwind CSS", "HTML/CSS"] },
-  { icon: "📱", name: "Mobile App Development",  desc: "Creating seamless cross-platform mobile experiences for Android and iOS platforms.",                      tags: ["Flutter", "SQLite", "Background Service", "System Alert"] },
-  { icon: "🐧", name: "DevOps & Infrastructure", desc: "Designing and deploying distributed systems with containerization and server security hardening.",         tags: ["Linux", "Podman", "Nginx", "Fail2Ban", "Suricata IDS/IPS"] },
-  { icon: "🗄️", name: "Database Management",     desc: "Designing complex SQL/NoSQL schemas with optimization, replication, and data integrity.",                  tags: ["MySQL", "PostgreSQL", "MongoDB", "SQLite", "Replication"] },
-  { icon: "🔐", name: "Security & Networking",   desc: "Implementing server security, firewall rules, IDS/IPS, WAF, and SSL end-to-end encryption.",              tags: ["Firewall", "VPN", "SSL/TLS", "Cloudflare WAF", "DDoS Protection"] },
+  { icon: "⚙️", name: "Back-End Development",   desc: "RESTful APIs with clean architecture, JWT/RBAC auth & real-time capabilities. Production-grade error handling.",             tags: ["Laravel", "Node.js", "Express.js", "Golang (Fiber)", "Python/FastAPI", "JWT", "RBAC"] },
+  { icon: "🎨", name: "Front-End Development",   desc: "Responsive, high-performance web apps — from TailAdmin dashboards to institutional KPI analytics.",                    tags: ["React.js", "Next.js", "TailAdmin", "Tailwind CSS", "TypeScript"] },
+  { icon: "📱", name: "Mobile (Flutter)",  desc: "Production Flutter with BLoC + Clean Architecture, offline cache (Sqflite/SharedPreferences) & background services.",                      tags: ["Flutter", "BLoC", "Clean Arch", "Sqflite", "Background Service", "OAuth"] },
+  { icon: "🐧", name: "DevOps & Infra", desc: "Distributed microservices with horizontal scaling, Podman & Nginx Load Balancer. Near-zero RPO validated by load testing.",         tags: ["Podman", "Nginx LB", "Linux", "Tailscale VPN", "CI/CD"] },
+  { icon: "🗄️", name: "Data & OLAP",     desc: "HTAP + Star Schema DWH, automated ETL, partitioning & BRIN. Roll-up / Slice / Dice / Drill-down for KPI dashboards.",                  tags: ["PostgreSQL", "MySQL", "MongoDB", "OLAP", "ETL", "BRIN", "Replication"] },
+  { icon: "🔐", name: "Security & Network",   desc: "Multi-layer hardening verified by Nmap pentest: WAF, IDS/IPS, VLAN, hardening — 0% packet loss, 0 exposed ports.",              tags: ["Cloudflare WAF", "Suricata IDS/IPS", "Fail2Ban", "VLAN", "SSL/TLS"] },
 ];
 
 export default function Skills() {

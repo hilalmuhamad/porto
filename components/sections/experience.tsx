@@ -4,52 +4,51 @@ import { useScrollReveal } from "@/lib/useScrollReveal";
 
 const EXPERIENCES = [
   {
-    company: "HIMATIF", date: "Mar 2025 – Present",
-    role: "Staff Public Relations",
+    company: "Maqdis Academy", date: "Jun – Sep 2026",
+    role: "Mobile Developer Intern",
     bullets: [
-      "Menginisiasi program \"Safari Himpunan\" dengan asosiasi mahasiswa universitas eksternal.",
-      "Liaison utama antara himpunan dengan sponsor korporat dan mitra strategis.",
-      "Memfasilitasi kolaborasi eksternal dan menjembatani komunikasi antar departemen.",
+      "Refactored state management dari setState ke BLoC + Clean Architecture — eliminate redundant rebuilds, smoother transitions, improved stability.",
+      "Sliced UI Hafalan (Quran memorization) dari Figma + implement background audio playback (tetap jalan saat app minimize/locked).",
+      "Integrated multi-layer auth (Google OAuth, deep linking, multi-tier session persistence) dengan error boundaries & fallback states.",
+      "Built modular responsive components + API interceptor & local caching (Sqflite, SharedPreferences) — resilient saat offline/poor network.",
     ],
-    tags: ["Public Relations", "Strategic Communication", "Partnership"],
+    tags: ["Flutter", "BLoC", "Clean Architecture", "OAuth", "Sqflite"],
+  },
+  {
+    company: "BLSDM Komdigi Bandung", date: "Mar – Jun 2026",
+    role: "IT Support Intern",
+    bullets: [
+      "Wireless site survey sistematis: speed testing, channel scanning, interference analysis & channel switching — resolve AP handoff delay (co-channel interference) → latency ~140ms → 17–19ms, throughput >150 Mbps, 0% packet loss.",
+      "Designed hierarchical office network topology untuk scalable access switches per lantai — expansion tanpa service disruption.",
+      "Optimized VLAN segmentation via Packet Tracer/GNS3 simulations prior to deployment — minimize config errors & rollout risk.",
+    ],
+    tags: ["TCP/IP", "VLAN", "GNS3", "Wireless Survey", "Network Topology"],
+  },
+  {
+    company: "I Channel TV Bandung", date: "Apr – Jun 2022",
+    role: "Assistant Producer Intern",
+    bullets: [
+      "Managed daily TV production workflows alongside Senior Producer — structured scheduling & broadcasting QA adherence.",
+      "Coordinated cross-functional creative/technical/talent teams — seamless execution of timelines.",
+    ],
+    tags: ["TV Production", "Scheduling", "Cross-team Coordination"],
+  },
+  {
+    company: "HIMATIF ULBI", date: "Mar 2025 – Present",
+    role: "Staff Public Relations (Organizational)",
+    bullets: [
+      "Initiated “Safari Himpunan” comparative study dengan asosiasi eksternal; liaison sponsor korporat & partnership negotiation.",
+      "Delivered sponsorship prospecting training ke 10–30 anggota — framework identifikasi & approach sponsor.",
+    ],
+    tags: ["Public Relations", "Partnership", "Leadership"],
   },
   {
     company: "K-Radio ULBI", date: "Mar 2025 – Present",
-    role: "Head of Media Design Division",
+    role: "Head of Media Design Division (Organizational)",
     bullets: [
-      "Memimpin tim kreatif untuk identitas visual konsisten di semua platform media sosial.",
-      "Mengawasi alur desain promosi event kampus, meningkatkan engagement audiens.",
+      "Led creative team — consistent visual identity across social platforms; increased engagement via compelling graphics.",
     ],
     tags: ["Creative Leadership", "Visual Design", "Social Media"],
-  },
-  {
-    company: "PT Computrade", date: "Aug 2025",
-    role: "Project Leader – Industrial Visit",
-    bullets: [
-      "Memimpin komite 20+ anggota untuk kunjungan industri strategis.",
-      "Mengelola timeline, logistik, dan korespondensi untuk 70+ peserta mahasiswa.",
-      "Liaison utama antara universitas dan perwakilan korporat.",
-    ],
-    tags: ["Project Management", "Logistics", "Leadership"],
-  },
-  {
-    company: "BEM KEMA ULBI", date: "Feb 2025",
-    role: "Junior Staff",
-    bullets: [
-      "Berkontribusi dalam perencanaan dan pelaksanaan event budaya skala universitas.",
-      "Mendorong inisiatif kreatif dalam lingkungan mahasiswa.",
-    ],
-    tags: ["Event Planning", "Teamwork"],
-  },
-  {
-    company: "I Channel TV", date: "Apr – Jun 2022",
-    role: "Assistant Producer (Intern)",
-    bullets: [
-      "Mengelola workflow produksi TV harian bersama Senior Producer.",
-      "Koordinasi komunikasi lintas tim kreatif, teknis, dan talent.",
-      "Menjembatani komunikasi strategis antara konsep teknis dengan stakeholder.",
-    ],
-    tags: ["TV Production", "Scheduling", "Cross-team Coordination"],
   },
 ];
 
