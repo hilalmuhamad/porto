@@ -1,16 +1,55 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useTheme } from "@/lib/ThemeProvider";
+import { useLanguage, STR, type Lang } from "@/lib/LanguageProvider";
 
-const NAV_LINKS = [
-  { label: "About",      href: "#about" },
-  { label: "Projects",   href: "#projects" },
-  { label: "Experience", href: "#experience" },
-  { label: "Education",  href: "#education" },
-];
+function LangSwitch({ compact = false }: { compact?: boolean }) {
+  const { lang, setLang } = useLanguage();
+  const opts: Lang[] = ["id", "en"];
+  return (
+    <div
+      role="group"
+      aria-label="Language / Bahasa"
+      style={{
+        display: "flex", alignItems: "center", gap: "2px",
+        background: "var(--tag-bg)",
+        border: "1px solid var(--border)",
+        borderRadius: "999px", padding: "2px", flexShrink: 0,
+        width: compact ? "100%" : "auto",
+      }}
+    >
+      {opts.map((o) => {
+        const on = lang === o;
+        return (
+          <button
+            key={o}
+            onClick={() => setLang(o)}
+            aria-pressed={on}
+            style={{
+              border: "none", cursor: "pointer",
+              flex: compact ? 1 : "none",
+              padding: compact ? ".6rem 0" : ".32rem .6rem",
+              borderRadius: "999px",
+              fontSize: compact ? ".78rem" : ".68rem", fontWeight: 700,
+              letterSpacing: ".06em",
+              background: on ? "var(--accent)" : "transparent",
+              color: on ? "var(--accent-inv)" : "var(--text2)",
+              transition: "all .18s",
+              fontFamily: "'Manrope',sans-serif",
+            }}
+          >
+            {o.toUpperCase()}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
 
 export default function Navbar() {
   const { theme, toggle } = useTheme();
+  const { lang } = useLanguage();
+  const NAV_LINKS = STR.nav.links[lang];
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("");
   const [scrolled, setScrolled] = useState(false);
@@ -49,13 +88,13 @@ export default function Navbar() {
     const isActive = active === href.replace("#", "");
     return {
       fontSize: ".78rem", fontWeight: isActive ? 600 : 500,
-      color: isActive ? "var(--bg)" : "rgba(245,244,240,0.68)",
+      color: isActive ? "var(--accent-inv)" : "var(--text2)",
       textDecoration: "none",
       padding: ".42rem .85rem", borderRadius: "999px",
       letterSpacing: ".01em",
-      background: isActive ? "rgba(245,244,240,0.18)" : "transparent",
+      background: isActive ? "var(--accent)" : "transparent",
       transition: "all .18s",
-      border: isActive ? "1px solid rgba(245,244,240,0.12)" : "1px solid transparent",
+      border: "1px solid transparent",
     };
   };
 
@@ -72,11 +111,13 @@ export default function Navbar() {
           display: "flex",
           alignItems: "center",
           gap: ".35rem",
-          background: "var(--accent)",
-          border: "1px solid rgba(255,255,255,0.08)",
+          background: "var(--nav-bg)",
+          backdropFilter: "blur(14px)",
+          WebkitBackdropFilter: "blur(14px)",
+          border: "1px solid var(--border)",
           borderRadius: "999px",
           padding: ".38rem .38rem .38rem .6rem",
-          boxShadow: scrolled ? "0 8px 32px rgba(0,0,0,0.14), 0 1px 0 rgba(255,255,255,0.06) inset" : "var(--shadow-lg)",
+          boxShadow: scrolled ? "var(--shadow-lg)" : "var(--shadow)",
           whiteSpace: "nowrap",
           transition: "top .25s, box-shadow .25s, background .25s",
           maxWidth: "96vw",
@@ -86,33 +127,34 @@ export default function Navbar() {
         <a href="#" aria-label="Home" style={{ display: "flex", alignItems: "center", gap: ".6rem", textDecoration: "none", flexShrink: 0 }}>
           <div style={{
             width: "32px", height: "32px", borderRadius: "50%",
-            background: "var(--accent-inv)", color: "var(--accent)",
+            background: "var(--accent)", color: "var(--accent-inv)",
             display: "flex", alignItems: "center", justifyContent: "center",
             fontFamily: "'Playfair Display',serif", fontSize: ".9rem", fontWeight: 800,
             letterSpacing: "-.02em",
           }}>H</div>
           <span className="nav-name" style={{
             fontFamily: "'Manrope',sans-serif", fontSize: ".82rem", fontWeight: 700,
-            color: "var(--bg)", letterSpacing: "-.01em", paddingRight: ".35rem",
+            color: "var(--text)", letterSpacing: "-.01em", paddingRight: ".35rem",
           }}>Hilal</span>
         </a>
 
-        <span aria-hidden style={{ width: "1px", height: "18px", background: "rgba(245,244,240,0.12)", flexShrink: 0 }} className="nav-sep" />
+        <span aria-hidden style={{ width: "1px", height: "18px", background: "var(--border)", flexShrink: 0 }} className="nav-sep" />
 
         {/* Desktop links */}
         <div className="nav-desktop-links" style={{ display: "flex", gap: ".15rem", alignItems: "center" }}>
           {NAV_LINKS.map(({ label, href }) => (
             <a key={href} href={href} style={linkStyle(href)}
-              onMouseEnter={(e) => { if (active !== href.replace("#","")) { (e.currentTarget as HTMLAnchorElement).style.color = "var(--bg)"; (e.currentTarget as HTMLAnchorElement).style.background = "rgba(245,244,240,0.10)"; } }}
-              onMouseLeave={(e) => { if (active !== href.replace("#","")) { (e.currentTarget as HTMLAnchorElement).style.color = "rgba(245,244,240,0.68)"; (e.currentTarget as HTMLAnchorElement).style.background = "transparent"; } }}
+              onMouseEnter={(e) => { if (active !== href.replace("#","")) { (e.currentTarget as HTMLAnchorElement).style.color = "var(--text)"; (e.currentTarget as HTMLAnchorElement).style.background = "var(--tag-bg)"; } }}
+              onMouseLeave={(e) => { if (active !== href.replace("#","")) { (e.currentTarget as HTMLAnchorElement).style.color = "var(--text2)"; (e.currentTarget as HTMLAnchorElement).style.background = "transparent"; } }}
             >{label}</a>
           ))}
         </div>
 
         {/* Right actions */}
         <div style={{ display: "flex", alignItems: "center", gap: ".35rem", flexShrink: 0, marginLeft: ".15rem" }}>
+          <LangSwitch />
           <a href="#contact" onClick={close} className="nav-cta" style={{
-            background: "var(--bg)", color: "var(--text)",
+            background: "var(--accent)", color: "var(--accent-inv)",
             fontSize: ".76rem", fontWeight: 700,
             padding: ".5rem 1rem", borderRadius: "999px",
             textDecoration: "none", display: "inline-flex", alignItems: "center", gap: ".35rem",
@@ -122,18 +164,18 @@ export default function Navbar() {
             onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(-1px)"; (e.currentTarget as HTMLAnchorElement).style.opacity = ".92"; }}
             onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLAnchorElement).style.opacity = "1"; }}
           >
-            Contact <span aria-hidden style={{ fontSize: ".7rem" }}>↗</span>
+            {STR.nav.contact[lang]} <span aria-hidden style={{ fontSize: ".7rem" }}>↗</span>
           </a>
 
           {/* Theme toggle — icon, bukan emoji */}
           <button onClick={toggle} aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`} title="Toggle theme" style={{
             width: "34px", height: "34px", borderRadius: "50%",
-            background: "rgba(255,255,255,0.10)", border: "1px solid rgba(255,255,255,0.08)",
+            background: "var(--tag-bg)", border: "1px solid var(--border)",
             cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
-            color: "var(--bg)", flexShrink: 0, transition: "background .18s, transform .18s",
+            color: "var(--text2)", flexShrink: 0, transition: "background .18s, transform .18s",
           }}
-            onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.18)")}
-            onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.10)")}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "var(--border)"; (e.currentTarget as HTMLButtonElement).style.color = "var(--text)"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "var(--tag-bg)"; (e.currentTarget as HTMLButtonElement).style.color = "var(--text2)"; }}
           >
             {theme === "light" ? (
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>
@@ -145,14 +187,14 @@ export default function Navbar() {
           {/* Hamburger — hanya mobile */}
           <button onClick={() => setOpen((v) => !v)} aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} style={{
             display: "none", width: "34px", height: "34px", borderRadius: "50%",
-            background: "rgba(255,255,255,0.10)", border: "1px solid rgba(255,255,255,0.08)",
+            background: "var(--tag-bg)", border: "1px solid var(--border)",
             cursor: "pointer", alignItems: "center", justifyContent: "center",
             flexDirection: "column", gap: "4px", flexShrink: 0,
           }} className="hamburger-btn">
             {[0, 1, 2].map((i) => (
               <span key={i} style={{
                 display: "block", width: "14px", height: "1.7px",
-                background: "var(--bg)", borderRadius: "2px",
+                background: "var(--text)", borderRadius: "2px",
                 transition: "all .26s cubic-bezier(.4,0,.2,1)",
                 transform: open
                   ? i === 0 ? "translateY(5.7px) rotate(45deg)"
@@ -173,7 +215,7 @@ export default function Navbar() {
             background: "rgba(0,0,0,0.22)", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)",
             border: "none", cursor: "pointer",
           }} />
-          <div role="dialog" aria-modal="true" aria-label="Navigation menu" style={{
+          <div role="dialog" aria-modal="true" aria-label={STR.nav.menuLabel[lang]} style={{
             position: "fixed", top: "4.2rem", left: "50%", transform: "translateX(-50%)",
             zIndex: 199, width: "min(92vw, 380px)",
             background: "var(--surface)", border: "1px solid var(--border)",
@@ -203,13 +245,14 @@ export default function Navbar() {
                 textAlign: "center", padding: ".75rem 1rem", borderRadius: "12px",
                 background: "var(--accent)", color: "var(--accent-inv)",
                 textDecoration: "none", fontSize: ".82rem", fontWeight: 700,
-              }}>Contact ↗</a>
-              <a href="/CV_Hilal Muhamad Abdul Gani.pdf" download onClick={close} style={{
+              }}>{STR.nav.contact[lang]} ↗</a>
+              <a href="/CV_Hilal_Muhamad.pdf" download="CV_Hilal_Muhamad.pdf" onClick={close} style={{
                 textAlign: "center", padding: ".75rem 1rem", borderRadius: "12px",
                 background: "transparent", color: "var(--text)", border: "1.5px solid var(--border)",
                 textDecoration: "none", fontSize: ".82rem", fontWeight: 600,
-              }}>Download CV ↓</a>
+              }}>{STR.nav.downloadCv[lang]}</a>
             </div>
+            <LangSwitch compact />
             <button onClick={toggle} style={{
               marginTop: ".2rem", width: "100%", padding: ".65rem 1rem",
               borderRadius: "12px", border: "1px solid var(--border)",
@@ -218,9 +261,9 @@ export default function Navbar() {
               display: "flex", alignItems: "center", justifyContent: "center", gap: ".5rem",
             }}>
               {theme === "light" ? (
-                <><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg> Dark mode</>
+                <><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg> {STR.nav.toDark[lang]}</>
               ) : (
-                <><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="12" cy="12" r="5" /><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" /></svg> Light mode</>
+                <><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="12" cy="12" r="5" /><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" /></svg> {STR.nav.toLight[lang]}</>
               )}
             </button>
           </div>

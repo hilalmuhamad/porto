@@ -1,100 +1,120 @@
 "use client";
+import Image from "next/image";
+import { Terminal, Briefcase, GraduationCap } from "lucide-react";
+import { useLanguage, STR } from "@/lib/LanguageProvider";
 import { useScrollReveal } from "@/lib/useScrollReveal";
 
-const INFO = [
-  { k: "Status",     v: "● Open to Full-time (Oct 2026)", green: true },
-  { k: "University", v: "ULBI Bandung" },
-  { k: "Program",    v: "D3 Teknik Informatika" },
-  { k: "GPA",        v: "3.72 / 4.00" },
-  { k: "Location",   v: "Bandung, Jawa Barat" },
-  { k: "Languages",  v: "Indonesian (Native), English (Professional)" },
-  { k: "Contact",    v: "hilalabdulgani@gmail.com" },
-];
-
-const TRAITS = ["Problem Solver", "Team Player", "Fast Learner", "Detail Oriented", "Open Source Enthusiast"];
+function CardIcon({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl border border-zinc-800 bg-zinc-900 text-zinc-300">
+      {children}
+    </div>
+  );
+}
 
 export default function About() {
+  const { lang } = useLanguage();
+  const t = STR.about;
   useScrollReveal();
 
   return (
-    <section id="about" style={{ background: "var(--bg)" }}>
-      <div className="sec-label">About Me</div>
-
-      <div className="about-grid">
-        {/* Left: bio */}
-        <div className="reveal">
-          <h2 style={{
-            fontFamily: "'Playfair Display',serif",
-            fontSize: "clamp(2rem,4vw,3.2rem)",
-            lineHeight: 1.15, letterSpacing: "-.02em", color: "var(--text)",
-          }}>
-            <span style={{ fontWeight: 900 }}>A web developer</span><br />
-            <span style={{ fontWeight: 400, color: "var(--text2)" }}>who&nbsp;</span>
-            <span style={{ fontStyle: "italic", fontWeight: 700, color: "var(--text2)" }}>blends strategy</span><br />
-            <span style={{ fontStyle: "italic", color: "var(--text2)" }}>with empathy.</span>
-          </h2>
-
-          <p style={{
-            fontSize: ".92rem", lineHeight: 1.85,
-            color: "var(--text2)", marginTop: "1.5rem",
-          }}>
-            Saya adalah{" "}
-            <strong style={{ color: "var(--text)", fontWeight: 600 }}>mahasiswa D3 Teknik Informatika ULBI</strong>{" "}
-            tingkat akhir (IPK{" "}
-            <strong style={{ color: "var(--text)", fontWeight: 600 }}>3.72/4.00</strong>, lulus Sep 2026 — menunggu wisuda) dengan spesialisasi{" "}
-            <strong style={{ color: "var(--text)", fontWeight: 600 }}>Full-Stack Web & Mobile</strong>.
-            <br /><br />
-            Terbukti membangun RESTful API, auth system (JWT/RBAC/OAuth), dan arsitektur <strong style={{ color: "var(--text)", fontWeight: 600 }}>Data Warehouse OLAP (Star Schema, ETL, HTAP)</strong> serta{" "}
-            <strong style={{ color: "var(--text)", fontWeight: 600 }}>distributed backend</strong> (Golang + Nginx Load Balancer + PostgreSQL Replication) untuk program distribusi pangan nasional. Saat ini sebagai{" "}
-            <strong style={{ color: "var(--text)", fontWeight: 600 }}>Mobile Developer Intern @ Maqdis Academy</strong> — slicing Figma ke Flutter (BLoC + Clean Architecture) dengan offline caching & background audio playback.
+    <section id="about" className="px-4 py-20 sm:px-6 md:py-24">
+      <div className="mx-auto w-full max-w-6xl">
+        {/* Header ringkas */}
+        <div className="reveal mb-10">
+          <p className="mb-2 text-xs font-bold tracking-[0.22em] text-zinc-500 uppercase">
+            {t.eyebrow[lang]}
           </p>
-
-          <div style={{ display: "flex", flexWrap: "wrap", gap: ".5rem", marginTop: "1.5rem" }}>
-            {TRAITS.map((t) => <span key={t} className="tag">{t}</span>)}
-          </div>
+          <h2
+            style={{ fontFamily: "'Playfair Display', serif" }}
+            className="text-3xl font-black tracking-tight text-zinc-100 sm:text-4xl md:text-5xl"
+          >
+            {t.titleA[lang]}{" "}
+            <span className="font-bold text-zinc-400 italic">{t.titleB[lang]}</span>
+          </h2>
         </div>
 
-        {/* Right: info card */}
-        <div className="reveal">
-          <div style={{
-            background: "var(--surface)",
-            border: "1px solid var(--border)",
-            borderRadius: "16px", padding: "1.5rem",
-          }}>
-            {INFO.map(({ k, v, green }, i) => (
-              <div key={k} style={{
-                display: "flex", justifyContent: "space-between",
-                alignItems: "center", gap: "1rem",
-                padding: ".9rem 0",
-                borderBottom: i < INFO.length - 1 ? "1px solid var(--border)" : "none",
-              }}>
-                <span style={{
-                  fontSize: ".72rem", fontWeight: 600, color: "var(--text3)",
-                  letterSpacing: ".1em", textTransform: "uppercase", flexShrink: 0,
-                }}>{k}</span>
-                <span style={{
-                  fontSize: ".85rem", fontWeight: 500,
-                  color: green ? "#22c55e" : "var(--text)",
-                  textAlign: "right",
-                }}>{v}</span>
+        {/* Bento: narasi lebar + foto portrait, 2 kartu di bawah */}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5">
+          {/* Kartu 1 — lebar */}
+          <article className="reveal rounded-3xl border border-zinc-800 bg-zinc-900/50 p-8 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-zinc-600 md:col-span-2 md:p-10">
+            <CardIcon>
+              <Terminal size={20} />
+            </CardIcon>
+            <h3 className="mb-4 text-xl font-bold tracking-tight text-zinc-100 md:text-2xl">
+              {t.card1Title[lang]}
+            </h3>
+            <p className="max-w-4xl text-sm leading-relaxed text-zinc-400 md:text-base">
+              {t.card1Body[lang]}
+            </p>
+          </article>
+
+          {/* Kartu foto — portrait tinggi */}
+          <article className="reveal group relative min-h-[440px] overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900 transition duration-300 hover:-translate-y-1 hover:border-zinc-600 md:row-span-2 md:min-h-full">
+            <Image
+              src="/pas photo hilal.jpeg"
+              alt="Hilal Muhamad Abdul Gani"
+              fill
+              style={{ objectFit: "cover", objectPosition: "top center" }}
+              sizes="(max-width: 768px) 100vw, 400px"
+              className="transition-transform duration-500 group-hover:scale-[1.03]"
+            />
+            <div
+              aria-hidden
+              className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/25 to-transparent"
+            />
+            <div className="absolute right-5 bottom-5 left-5 flex items-center gap-3">
+              <div className="min-w-0 flex-1">
+                <div className="truncate text-sm font-bold text-zinc-100">
+                  Hilal Muhamad A. G.
+                </div>
+                <div className="text-[0.7rem] text-zinc-400">
+                  D3 Informatics · ULBI
+                </div>
               </div>
-            ))}
-          </div>
+              <span className="shrink-0 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 text-[0.7rem] font-bold text-emerald-400">
+                3.72 IPK
+              </span>
+            </div>
+          </article>
+
+          {/* Kartu 2 — pengalaman */}
+          <article className="reveal rounded-3xl border border-zinc-800 bg-zinc-900/50 p-8 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-zinc-600">
+            <CardIcon>
+              <Briefcase size={20} />
+            </CardIcon>
+            <h3 className="mb-4 text-xl font-bold tracking-tight text-zinc-100">
+              {t.card2Title[lang]}
+            </h3>
+            <ul className="flex flex-col gap-3.5">
+              {t.card2Points[lang].map((point) => (
+                <li key={point} className="flex gap-3 text-sm leading-relaxed text-zinc-400">
+                  <span aria-hidden className="mt-[0.55rem] h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400" />
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
+          </article>
+
+          {/* Kartu 3 — pendidikan */}
+          <article className="reveal rounded-3xl border border-zinc-800 bg-zinc-900/50 p-8 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-zinc-600">
+            <CardIcon>
+              <GraduationCap size={20} />
+            </CardIcon>
+            <h3 className="mb-4 text-xl font-bold tracking-tight text-zinc-100">
+              {t.card3Title[lang]}
+            </h3>
+            <ul className="flex flex-col gap-3.5">
+              {t.card3Points[lang].map((point) => (
+                <li key={point} className="flex gap-3 text-sm leading-relaxed text-zinc-400">
+                  <span aria-hidden className="mt-[0.55rem] h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400" />
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
+          </article>
         </div>
       </div>
-
-      <style>{`
-        .about-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 6rem;
-          align-items: start;
-          margin-top: 2rem;
-        }
-        @media (max-width: 1024px) {
-          .about-grid { grid-template-columns: 1fr; gap: 3rem; }
-        }
-      `}</style>
     </section>
   );
 }

@@ -1,56 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useScrollReveal } from "@/lib/useScrollReveal";
-
-const EXPERIENCES = [
-  {
-    company: "Maqdis Academy", date: "Jun – Sep 2026",
-    role: "Mobile Developer Intern",
-    bullets: [
-      "Refactored state management dari setState ke BLoC + Clean Architecture — eliminate redundant rebuilds, smoother transitions, improved stability.",
-      "Sliced UI Hafalan (Quran memorization) dari Figma + implement background audio playback (tetap jalan saat app minimize/locked).",
-      "Integrated multi-layer auth (Google OAuth, deep linking, multi-tier session persistence) dengan error boundaries & fallback states.",
-      "Built modular responsive components + API interceptor & local caching (Sqflite, SharedPreferences) — resilient saat offline/poor network.",
-    ],
-    tags: ["Flutter", "BLoC", "Clean Architecture", "OAuth", "Sqflite"],
-  },
-  {
-    company: "BLSDM Komdigi Bandung", date: "Mar – Jun 2026",
-    role: "IT Support Intern",
-    bullets: [
-      "Wireless site survey sistematis: speed testing, channel scanning, interference analysis & channel switching — resolve AP handoff delay (co-channel interference) → latency ~140ms → 17–19ms, throughput >150 Mbps, 0% packet loss.",
-      "Designed hierarchical office network topology untuk scalable access switches per lantai — expansion tanpa service disruption.",
-      "Optimized VLAN segmentation via Packet Tracer/GNS3 simulations prior to deployment — minimize config errors & rollout risk.",
-    ],
-    tags: ["TCP/IP", "VLAN", "GNS3", "Wireless Survey", "Network Topology"],
-  },
-  {
-    company: "I Channel TV Bandung", date: "Apr – Jun 2022",
-    role: "Assistant Producer Intern",
-    bullets: [
-      "Managed daily TV production workflows alongside Senior Producer — structured scheduling & broadcasting QA adherence.",
-      "Coordinated cross-functional creative/technical/talent teams — seamless execution of timelines.",
-    ],
-    tags: ["TV Production", "Scheduling", "Cross-team Coordination"],
-  },
-  {
-    company: "HIMATIF ULBI", date: "Mar 2025 – Present",
-    role: "Staff Public Relations (Organizational)",
-    bullets: [
-      "Initiated “Safari Himpunan” comparative study dengan asosiasi eksternal; liaison sponsor korporat & partnership negotiation.",
-      "Delivered sponsorship prospecting training ke 10–30 anggota — framework identifikasi & approach sponsor.",
-    ],
-    tags: ["Public Relations", "Partnership", "Leadership"],
-  },
-  {
-    company: "K-Radio ULBI", date: "Mar 2025 – Present",
-    role: "Head of Media Design Division (Organizational)",
-    bullets: [
-      "Led creative team — consistent visual identity across social platforms; increased engagement via compelling graphics.",
-    ],
-    tags: ["Creative Leadership", "Visual Design", "Social Media"],
-  },
-];
+import { EXPERIENCES } from "@/lib/portfolio";
 
 export default function Experience() {
   const [active, setActive] = useState(0);

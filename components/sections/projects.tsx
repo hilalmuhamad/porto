@@ -1,41 +1,6 @@
 "use client";
 import { useScrollReveal } from "@/lib/useScrollReveal";
-
-const PROJECTS = [
-  {
-    emoji: "📊", label: "Featured · Final Project — ULBI",
-    title: "Tracer Study Data Warehouse & OLAP Analytics",
-    tags: ["Laravel", "PostgreSQL", "Star Schema", "ETL", "OLAP", "React / TailAdmin"],
-    desc: "Solves slow institutional reporting: HTAP design keeps OLTP fast during heavy analytics. Automated ETL (100% integrity, 0 orphan records), yearly partitioning + BRIN indexes, and full OLAP — Roll-up, Slice, Dice, Drill-down for employability KPIs (alignment, waiting period).",
-    link: "https://github.com/hilalmuhamad/tugas_akhir.git",
-    role: "Fullstack Developer · Star Schema DWH", date: "2025 – 2026",
-    highlight: true,
-  },
-  {
-    emoji: "🐛", label: "Backend & Infra — Production Scale",
-    title: "Maggot Cycle – Distributed Backend for Waste Reporting",
-    tags: ["Golang (Fiber)", "Podman", "Nginx LB", "PostgreSQL Replication", "Cloudflare WAF"],
-    desc: "Handles high-concurrency reports from hundreds of B2B kitchens. Dual Go services behind Nginx LB + Master-Slave replication (RPO near-zero, RTO <1h). Multi-layer hardening (JWT, WAF, Suricata, Fail2Ban, Tailscale) — load-tested: 0% error, 0 exposed ports (Nmap verified).",
-    link: "https://github.com/bpmthm/maggot-cycle",
-    role: "Backend / Infra Engineer", date: "Jan 2026",
-  },
-  {
-    emoji: "📱", label: "Mobile · Flutter — BLoC / Clean Arch",
-    title: "Focus Talk – Smart Intervention & Micro-Learning",
-    tags: ["Flutter", "FastAPI / Python", "UsageStatsManager", "WindowManager"],
-    desc: "Fights digital procrastination on-device. Heuristic engine detects distraction apps (Instagram, TikTok) and overlays a non-blocking English micro-quiz (WindowManager) as a soft-gate — with FastAPI backend for scores & leaderboard gamification.",
-    link: "https://github.com/rdwnsyh/focustalk_app.git",
-    role: "Mobile Developer", date: "Nov 2025 – Feb 2026",
-  },
-  {
-    emoji: "🏥", label: "Full-Stack — Health Tech",
-    title: "MediTech – Integrated Digital Health Management",
-    tags: ["Node.js", "Express.js", "MongoDB", "React.js", "Flutter", "JWT / RBAC"],
-    desc: "Secure, real-time telemedicine ecosystem: React.js admin dashboard + Flutter patient app. JWT authentication + RBAC for sensitive medical data, ready for Socket.IO chat consultation at scale.",
-    link: "https://github.com/hilalmuhamad/app-klinik-kita.git",
-    role: "Fullstack Developer", date: "Jun – Aug 2025",
-  },
-];
+import { PROJECTS } from "@/lib/portfolio";
 
 export default function Projects() {
   useScrollReveal();
