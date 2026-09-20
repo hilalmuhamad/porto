@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { Terminal, Briefcase, GraduationCap } from "lucide-react";
+import { Code2, Users, Award } from "lucide-react";
 import { useLanguage, STR } from "@/lib/LanguageProvider";
 import { useScrollReveal } from "@/lib/useScrollReveal";
 
@@ -39,7 +39,7 @@ export default function About() {
           {/* Kartu 1 — lebar */}
           <article className="reveal rounded-3xl border border-zinc-800 bg-zinc-900/50 p-8 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-zinc-600 md:col-span-2 md:p-10">
             <CardIcon>
-              <Terminal size={20} />
+              <Code2 size={20} />
             </CardIcon>
             <h3 className="mb-4 text-xl font-bold tracking-tight text-zinc-100 md:text-2xl">
               {t.card1Title[lang]}
@@ -81,7 +81,7 @@ export default function About() {
           {/* Kartu 2 — pengalaman */}
           <article className="reveal rounded-3xl border border-zinc-800 bg-zinc-900/50 p-8 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-zinc-600">
             <CardIcon>
-              <Briefcase size={20} />
+              <Users size={20} />
             </CardIcon>
             <h3 className="mb-4 text-xl font-bold tracking-tight text-zinc-100">
               {t.card2Title[lang]}
@@ -99,7 +99,7 @@ export default function About() {
           {/* Kartu 3 — pendidikan */}
           <article className="reveal rounded-3xl border border-zinc-800 bg-zinc-900/50 p-8 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-zinc-600">
             <CardIcon>
-              <GraduationCap size={20} />
+              <Award size={20} />
             </CardIcon>
             <h3 className="mb-4 text-xl font-bold tracking-tight text-zinc-100">
               {t.card3Title[lang]}
