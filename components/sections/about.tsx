@@ -1,118 +1,75 @@
 "use client";
 import Image from "next/image";
-import { Code2, Users, Award } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 import { useLanguage, STR } from "@/lib/LanguageProvider";
 import { useScrollReveal } from "@/lib/useScrollReveal";
-
-function CardIcon({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl border border-zinc-800 bg-zinc-900 text-zinc-300">
-      {children}
-    </div>
-  );
-}
 
 export default function About() {
   const { lang } = useLanguage();
   const t = STR.about;
+  const reduce = useReducedMotion();
   useScrollReveal();
 
   return (
     <section id="about" className="px-4 py-20 sm:px-6 md:py-24">
       <div className="mx-auto w-full max-w-6xl">
-        {/* Header ringkas */}
-        <div className="reveal mb-10">
-          <p className="mb-2 text-xs font-bold tracking-[0.22em] text-zinc-500 uppercase">
+        {/* Header */}
+        <div className="reveal mb-10 md:mb-12">
+          <p className="mb-2 text-xs font-bold tracking-[0.22em] text-ink-3 uppercase">
             {t.eyebrow[lang]}
           </p>
           <h2
             style={{ fontFamily: "'Playfair Display', serif" }}
-            className="text-3xl font-black tracking-tight text-zinc-100 sm:text-4xl md:text-5xl"
+            className="text-3xl font-black tracking-tight text-ink sm:text-4xl md:text-5xl"
           >
             {t.titleA[lang]}{" "}
-            <span className="font-bold text-zinc-400 italic">{t.titleB[lang]}</span>
+            <span className="font-bold text-ink-2 italic">{t.titleB[lang]}</span>
           </h2>
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-ink-2 md:text-lg md:leading-loose">
+            {t.intro[lang]}
+          </p>
         </div>
 
-        {/* Bento: narasi lebar + foto portrait, 2 kartu di bawah */}
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5">
-          {/* Kartu 1 — lebar */}
-          <article className="reveal rounded-3xl border border-zinc-800 bg-zinc-900/50 p-8 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-zinc-600 md:col-span-2 md:p-10">
-            <CardIcon>
-              <Code2 size={20} />
-            </CardIcon>
-            <h3 className="mb-4 text-xl font-bold tracking-tight text-zinc-100 md:text-2xl">
-              {t.card1Title[lang]}
-            </h3>
-            <p className="max-w-4xl text-sm leading-relaxed text-zinc-400 md:text-base">
-              {t.card1Body[lang]}
-            </p>
-          </article>
-
-          {/* Kartu foto — portrait tinggi */}
-          <article className="reveal group relative min-h-[440px] overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900 transition duration-300 hover:-translate-y-1 hover:border-zinc-600 md:row-span-2 md:min-h-full">
-            <Image
-              src="/pas photo hilal.jpeg"
-              alt="Hilal Muhamad Abdul Gani"
-              fill
-              style={{ objectFit: "cover", objectPosition: "top center" }}
-              sizes="(max-width: 768px) 100vw, 400px"
-              className="transition-transform duration-500 group-hover:scale-[1.03]"
-            />
-            <div
-              aria-hidden
-              className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/25 to-transparent"
-            />
-            <div className="absolute right-5 bottom-5 left-5 flex items-center gap-3">
-              <div className="min-w-0 flex-1">
-                <div className="truncate text-sm font-bold text-zinc-100">
-                  Hilal Muhamad A. G.
-                </div>
-                <div className="text-[0.7rem] text-zinc-400">
-                  D3 Informatics · ULBI
-                </div>
-              </div>
-              <span className="shrink-0 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 text-[0.7rem] font-bold text-emerald-400">
-                3.72 IPK
-              </span>
+        {/* Dua kolom: narasi kiri, foto kanan (stack: foto di atas) */}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-5 md:gap-8">
+          {/* Foto — muncul pertama di mobile */}
+          <motion.figure
+            initial={reduce ? false : { opacity: 0, y: 28, scale: 0.96 }}
+            whileInView={reduce ? undefined : { opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            whileHover={reduce ? undefined : { y: -6 }}
+            className="group relative order-1 overflow-hidden rounded-3xl bg-card shadow-card transition-shadow duration-300 hover:shadow-lift md:order-2 md:col-span-2"
+          >
+            <div className="relative aspect-[4/5] w-full">
+              <Image
+                src="/pasphotohilal.jpeg"
+                alt="Hilal Muhamad Abdul Gani"
+                fill
+                style={{ objectFit: "cover", objectPosition: "top center" }}
+                sizes="(max-width: 768px) 100vw, 380px"
+                className="transition-transform duration-700 group-hover:scale-[1.05]"
+              />
             </div>
-          </article>
+          </motion.figure>
 
-          {/* Kartu 2 — pengalaman */}
-          <article className="reveal rounded-3xl border border-zinc-800 bg-zinc-900/50 p-8 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-zinc-600">
-            <CardIcon>
-              <Users size={20} />
-            </CardIcon>
-            <h3 className="mb-4 text-xl font-bold tracking-tight text-zinc-100">
-              {t.card2Title[lang]}
-            </h3>
-            <ul className="flex flex-col gap-3.5">
-              {t.card2Points[lang].map((point) => (
-                <li key={point} className="flex gap-3 text-sm leading-relaxed text-zinc-400">
-                  <span aria-hidden className="mt-[0.55rem] h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400" />
-                  <span>{point}</span>
-                </li>
-              ))}
-            </ul>
-          </article>
+          {/* Narasi */}
+          <div className="order-2 flex flex-col gap-5 md:order-1 md:col-span-3">
+            <article className="reveal rounded-3xl bg-card shadow-card p-8 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:shadow-lift md:p-10">
+              <p className="text-sm leading-relaxed text-ink-2 md:text-base md:leading-loose">
+                {t.highlight[lang]}
+              </p>
+              <div aria-hidden className="my-6 h-px bg-gradient-to-r from-transparent via-[var(--line-strong)] to-transparent" />
+              <p className="text-sm leading-relaxed text-ink-2 md:text-base md:leading-loose">
+                {t.collab[lang]}
+              </p>
 
-          {/* Kartu 3 — pendidikan */}
-          <article className="reveal rounded-3xl border border-zinc-800 bg-zinc-900/50 p-8 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-zinc-600">
-            <CardIcon>
-              <Award size={20} />
-            </CardIcon>
-            <h3 className="mb-4 text-xl font-bold tracking-tight text-zinc-100">
-              {t.card3Title[lang]}
-            </h3>
-            <ul className="flex flex-col gap-3.5">
-              {t.card3Points[lang].map((point) => (
-                <li key={point} className="flex gap-3 text-sm leading-relaxed text-zinc-400">
-                  <span aria-hidden className="mt-[0.55rem] h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400" />
-                  <span>{point}</span>
-                </li>
-              ))}
-            </ul>
-          </article>
+              {/* Penutup: fokus kerja */}
+              <p className="mt-7 border-l-2 border-emerald-500/60 pl-4 text-sm font-medium leading-relaxed text-ink md:text-base">
+                {t.focus[lang]}
+              </p>
+            </article>
+          </div>
         </div>
       </div>
     </section>

@@ -85,7 +85,7 @@ export default function Hero() {
   const my = useMotionValue(-600);
   const sx = useSpring(mx, { stiffness: 120, damping: 22 });
   const sy = useSpring(my, { stiffness: 120, damping: 22 });
-  const glow = useMotionTemplate`radial-gradient(520px circle at ${sx}px ${sy}px, rgba(255,255,255,0.07), transparent 65%)`;
+  const glow = useMotionTemplate`radial-gradient(520px circle at ${sx}px ${sy}px, var(--glow), transparent 65%)`;
 
   /* Parallax orb kiri-atas: bergeser melawan arah kursor */
   const orbX = useTransform(sx, (v) => (v - 700) * -0.04);
@@ -124,7 +124,7 @@ export default function Hero() {
           className="absolute inset-0 opacity-[0.5]"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)",
+              "linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px)",
             backgroundSize: "56px 56px",
             maskImage: "radial-gradient(ellipse 75% 60% at 50% 38%, black 30%, transparent 75%)",
             WebkitMaskImage: "radial-gradient(ellipse 75% 60% at 50% 38%, black 30%, transparent 75%)",
@@ -135,16 +135,16 @@ export default function Hero() {
             <motion.div className="absolute inset-0" style={{ background: glow }} />
             {/* Gradien interaktif kiri-atas: parallax mengikuti kursor */}
             <motion.div
-              className="absolute -top-40 -left-40 h-[520px] w-[520px] rounded-full bg-gradient-to-br from-emerald-900/50 via-zinc-800/30 to-transparent blur-[110px]"
+              className="absolute -top-40 -left-40 h-[520px] w-[520px] rounded-full bg-gradient-to-br from-[var(--orb-accent)] via-[var(--orb)] to-transparent blur-[110px]"
               style={{ x: orbX, y: orbY }}
             />
             <motion.div
-              className="absolute -top-32 left-[8%] h-[420px] w-[420px] rounded-full bg-zinc-700/20 blur-[110px]"
+              className="absolute -top-32 left-[8%] h-[420px] w-[420px] rounded-full bg-orb blur-[110px]"
               animate={{ x: [0, 50, 0], y: [0, 30, 0] }}
               transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
             />
             <motion.div
-              className="absolute right-[5%] bottom-[5%] h-[380px] w-[380px] rounded-full bg-emerald-950/50 blur-[110px]"
+              className="absolute right-[5%] bottom-[5%] h-[380px] w-[380px] rounded-full bg-[var(--orb-accent-soft)] blur-[110px]"
               animate={{ x: [0, -40, 0], y: [0, -30, 0] }}
               transition={{ duration: 19, repeat: Infinity, ease: "easeInOut" }}
             />
@@ -161,7 +161,7 @@ export default function Hero() {
       >
         <div className="relative">
           {/* 1. Status Badge */}
-          <motion.div variants={reduce ? undefined : item} className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-zinc-800 bg-zinc-900 px-4 py-1.5 text-xs font-medium text-zinc-300">
+          <motion.div variants={reduce ? undefined : item} className="mb-6 inline-flex items-center gap-2.5 rounded-full bg-elevated px-4 py-1.5 text-xs font-medium text-ink-2">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500 opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
@@ -170,23 +170,23 @@ export default function Hero() {
           </motion.div>
 
           {/* 2. Heading & Nama — font Playfair dipertahankan */}
-          <motion.p variants={reduce ? undefined : item} className="mb-2 text-sm font-semibold tracking-[0.18em] text-zinc-500 uppercase">
+          <motion.p variants={reduce ? undefined : item} className="mb-2 text-sm font-semibold tracking-[0.18em] text-ink-3 uppercase">
             Hi, I&apos;m
           </motion.p>
           <motion.h1
             variants={reduce ? undefined : item}
             style={{ fontFamily: "'Playfair Display', serif" }}
-            className="text-5xl leading-[1.02] tracking-tight text-zinc-100 sm:text-7xl md:text-8xl"
+            className="text-5xl leading-[1.02] tracking-tight text-ink sm:text-7xl md:text-8xl"
           >
             <span className="font-black">Hilal</span>{" "}
-            <span className="font-bold italic text-zinc-200">Muhamad</span>
+            <span className="font-bold italic text-ink">Muhamad</span>
           </motion.h1>
 
           {/* 3. Role berganti satu per satu + titik navigasi */}
           <motion.div variants={reduce ? undefined : item} className="mt-5 flex items-center gap-3">
-            <div className="inline-flex h-10 min-w-[190px] items-center justify-center overflow-hidden rounded-full border border-zinc-800 bg-zinc-900/80 px-4 sm:min-w-[210px]">
+            <div className="inline-flex h-10 min-w-[190px] items-center justify-center overflow-hidden rounded-full bg-chip px-4 sm:min-w-[210px]">
               {reduce ? (
-                <span className="text-sm font-semibold whitespace-nowrap text-zinc-100">
+                <span className="text-sm font-semibold whitespace-nowrap text-ink">
                   {ROLES[roleIdx]}
                 </span>
               ) : (
@@ -197,7 +197,7 @@ export default function Hero() {
                     animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                     exit={{ opacity: 0, y: -16, filter: "blur(6px)" }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
-                    className="text-sm font-semibold whitespace-nowrap text-zinc-100"
+                    className="text-sm font-semibold whitespace-nowrap text-ink"
                   >
                     {ROLES[roleIdx]}
                   </motion.span>
@@ -216,7 +216,7 @@ export default function Hero() {
                   style={{
                     width: i === roleIdx ? "22px" : "7px",
                     height: "7px",
-                    background: i === roleIdx ? "#34d399" : "rgba(255,255,255,0.18)",
+                    background: i === roleIdx ? "#34d399" : "var(--dot-idle)",
                   }}
                 />
               ))}
@@ -224,7 +224,7 @@ export default function Hero() {
           </motion.div>
 
           {/* 4. Short Bio / Value Proposition */}
-          <motion.p variants={reduce ? undefined : item} className="mt-6 max-w-2xl text-sm leading-relaxed text-zinc-400 md:text-base">
+          <motion.p variants={reduce ? undefined : item} className="mt-6 max-w-2xl text-sm leading-relaxed text-ink-2 md:text-base">
             {t.bio[lang]}
           </motion.p>
 
@@ -233,7 +233,7 @@ export default function Hero() {
             <Magnetic>
               <a
                 href="#projects"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-zinc-100 px-6 py-3 text-sm font-semibold text-zinc-900 transition-[background-color,translate] duration-200 hover:-translate-y-0.5 hover:bg-white"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-invert px-6 py-3 text-sm font-semibold text-on-invert transition-[background-color,translate] duration-200 hover:-translate-y-0.5 hover:bg-invert-hover"
               >
                 {t.viewProjects[lang]}
                 <ArrowRight size={16} />
@@ -243,7 +243,7 @@ export default function Hero() {
               <a
                 href={PROFILE.cvUrl}
                 download={CV_FILENAME}
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-zinc-700 px-6 py-3 text-sm font-semibold text-zinc-200 transition duration-200 hover:-translate-y-0.5 hover:border-zinc-500 hover:bg-zinc-800/60"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-chip px-6 py-3 text-sm font-semibold text-ink transition duration-200 hover:-translate-y-0.5 hover:bg-elevated-hover"
               >
                 {t.downloadCv[lang]}
                 <Download size={16} />
@@ -252,7 +252,7 @@ export default function Hero() {
           </motion.div>
 
           {/* 6. Social & Email */}
-          <motion.div variants={reduce ? undefined : item} className="mt-8 flex items-center gap-3 border-t border-zinc-800/80 pt-6">
+          <motion.div variants={reduce ? undefined : item} className="mt-8 flex items-center gap-3 border-t border-hairline pt-6">
             {socials.map(({ label, href, Icon }) => (
               <motion.a
                 key={label}
@@ -263,23 +263,23 @@ export default function Hero() {
                 title={label}
                 whileHover={reduce ? undefined : { y: -3 }}
                 whileTap={reduce ? undefined : { scale: 0.92 }}
-                className="rounded-full border border-zinc-800 p-2.5 text-zinc-400 transition-colors duration-200 hover:border-zinc-600 hover:text-zinc-100"
+                className="rounded-full bg-chip p-2.5 text-ink-2 transition-colors duration-200 hover:bg-elevated-hover hover:text-ink"
               >
                 <Icon size={18} />
               </motion.a>
             ))}
-            <span className="ml-1 hidden text-xs text-zinc-500 sm:block">
+            <span className="ml-1 hidden text-xs text-ink-3 sm:block">
               {PROFILE.email}
             </span>
           </motion.div>
 
           {/* 7. Tech stack */}
-          <motion.div variants={reduce ? undefined : item} className="mt-8 border-t border-zinc-800/80 pt-6">
+          <motion.div variants={reduce ? undefined : item} className="mt-8 border-t border-hairline pt-6">
             <div className="flex flex-wrap gap-2">
               {CORE_TECHS.slice(0, 6).map((tech) => (
                 <span
                   key={tech}
-                  className="rounded-full border border-zinc-800/80 bg-zinc-900 px-3 py-1 text-[0.7rem] font-medium text-zinc-400 transition-colors duration-200 hover:border-zinc-600 hover:text-zinc-200"
+                  className="rounded-full bg-chip px-3 py-1 text-[0.7rem] font-medium text-ink-2 transition-colors duration-200 hover:bg-elevated-hover hover:text-ink"
                 >
                   {tech}
                 </span>

@@ -1,122 +1,162 @@
 "use client";
-import { useScrollReveal } from "@/lib/useScrollReveal";
+import Image from "next/image";
+import {
+  GraduationCap,
+  MapPin,
+  CalendarDays,
+  BadgeCheck,
+} from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import { useLanguage, STR } from "@/lib/LanguageProvider";
+import { PROFILE } from "@/lib/portfolio";
 
-const EDU = [
-  {
-    icon: "🎓",
-    name: "Universitas Logistik dan Bisnis Internasional (ULBI)",
-    degree: "Diploma (D3) in Informatics Engineering · GPA: 3.72/4.00",
-    meta: ["📍 Bandung, Indonesia", "📅 2023 – 2026", "● Awaiting Wisuda"],
-    desc: "Relevant Coursework: Data Structures & Algorithms, OOP, Web & Mobile Development, Database Management Systems (SQL/NoSQL), Software Engineering. Final Project: Alumni Tracer Study & Job-Matching — OLAP-based analytics (star schema DWH) with React.js/TailAdmin + Laravel/MySQL for institutional monitoring of alumni employment alignment. PKM: Laravel web programming bootcamp facilitator at SMK Negeri 2 Cimahi (Public Relations liaison).",
-    bold: "Tracer Study",
-    featured: true,
+const gridVariants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.09, delayChildren: 0.08 } },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 30, filter: "blur(6px)" },
+  show: {
+    opacity: 1, y: 0, filter: "blur(0px)",
+    transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] as const },
   },
-  {
-    icon: "📡",
-    name: "BNSP — Teknisi Muda Jaringan Komputer",
-    degree: "National Professional Certification",
-    meta: ["📅 Sep 2026", "✅ BNSP Certified"],
-    desc: "Certified competence in computer networking — aligns with IT Support experience @ BLSDM Komdigi (VLAN, TCP/IP, site survey & hardening).",
-  },
-  {
-    icon: "🏢",
-    name: "SAP — Introduction to the ABAP Workbench",
-    degree: "SAP Certified",
-    meta: ["📅 July 2025", "✅ Certified"],
-    desc: "Foundational ABAP Workbench for enterprise ERP development.",
-  },
-  {
-    icon: "⚙️",
-    name: "Dicoding — Back-End Development with JavaScript",
-    degree: "Dicoding Certification",
-    meta: ["📅 Sep 2024", "✅ Certified"],
-    desc: "RESTful API architecture, server management & Back-End best practices with Node.js — applied in MediTech & Focus Talk.",
-  },
-  {
-    icon: "☁️",
-    name: "Dicoding — Cloud Practitioner Essentials",
-    degree: "Dicoding Certification",
-    meta: ["📅 June 2024", "✅ Certified"],
-    desc: "Core cloud computing concepts, essential cloud services & deployment/security best practices.",
-  },
-];
+};
+
+function Chip({ icon, children }: { icon: React.ReactNode; children: React.ReactNode }) {
+  return (
+    <span className="inline-flex items-center gap-1.5 rounded-full bg-chip px-3 py-1 text-[0.68rem] font-semibold text-ink-2">
+      {icon}
+      {children}
+    </span>
+  );
+}
 
 export default function Education() {
-  useScrollReveal();
+  const { lang } = useLanguage();
+  const t = STR.education;
+  const reduce = useReducedMotion();
+
+  const rows = [
+    { label: t.coursework[lang], text: t.courseworkText[lang] },
+    { label: t.finalProject[lang], text: t.finalProjectText[lang] },
+    { label: t.community[lang], text: t.communityText[lang] },
+  ];
 
   return (
-    <section id="education" style={{ background: "var(--bg)" }}>
-      <div className="sec-label">Education & Certs</div>
-
-      <h2 className="reveal" style={{
-        fontFamily: "'Playfair Display',serif",
-        fontSize: "clamp(2rem,4vw,3rem)",
-        lineHeight: 1.1, letterSpacing: "-.02em",
-        color: "var(--text)", marginBottom: "3rem",
-      }}>
-        <span style={{ fontWeight: 900 }}>Academic</span>{" "}
-        <span style={{ fontStyle: "italic", color: "var(--text2)" }}>Background</span>
-      </h2>
-
-      <div className="edu-grid">
-        {EDU.map(({ icon, name, degree, meta, desc, bold, featured }) => (
-          <div key={name} className={`edu-card reveal ${featured ? "edu-featured" : ""}`}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLDivElement).style.transform = "translateY(-4px)";
-              (e.currentTarget as HTMLDivElement).style.boxShadow = "var(--shadow)";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)";
-              (e.currentTarget as HTMLDivElement).style.boxShadow = "none";
-            }}
+    <section id="education" className="px-4 py-20 sm:px-6 md:py-24">
+      <div className="mx-auto w-full max-w-6xl">
+        {/* Header */}
+        <div className="reveal mb-10 md:mb-12">
+          <p className="mb-2 text-xs font-bold tracking-[0.22em] text-ink-3 uppercase">
+            {t.eyebrow[lang]}
+          </p>
+          <h2
+            style={{ fontFamily: "'Playfair Display', serif" }}
+            className="text-3xl font-black tracking-tight text-ink sm:text-4xl md:text-5xl"
           >
-            <div style={{ fontSize: "1.8rem", marginBottom: "1rem" }}>{icon}</div>
-            <div style={{ fontSize: "1rem", fontWeight: 700, color: "var(--text)", marginBottom: ".3rem", lineHeight: 1.3 }}>{name}</div>
-            <div style={{ fontSize: ".82rem", fontWeight: 600, color: "var(--text2)", marginBottom: ".8rem" }}>{degree}</div>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: ".5rem", marginBottom: "1rem" }}>
-              {meta.map((m) => (
-                <span key={m} style={{
-                  fontSize: ".7rem", fontWeight: 500, color: "var(--text3)",
-                  padding: ".2rem .6rem", background: "var(--tag-bg)", borderRadius: "4px",
-                }}>{m}</span>
+            {t.titleA[lang]}{" "}
+            <span className="font-bold text-ink-2 italic">{t.titleB[lang]}</span>
+          </h2>
+          <p className="mt-5 max-w-2xl text-sm leading-relaxed text-ink-2 md:text-base">
+            {t.lead[lang]}
+          </p>
+        </div>
+
+        <motion.div
+          variants={reduce ? undefined : gridVariants}
+          initial={reduce ? false : "hidden"}
+          whileInView={reduce ? undefined : "show"}
+          viewport={{ once: true, amount: 0.15 }}
+          className="grid grid-cols-1 gap-5 lg:grid-cols-3 lg:gap-6"
+        >
+          {/* Universitas — kartu lebar */}
+          <motion.article
+            variants={reduce ? undefined : cardVariants}
+            className="flex flex-col rounded-3xl bg-card shadow-card p-7 backdrop-blur-sm transition-shadow duration-300 hover:shadow-lift lg:col-span-3 lg:p-9"
+          >
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              <div className="flex items-start gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-elevated text-ink-2">
+                  <GraduationCap size={21} />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold tracking-tight text-ink md:text-xl">
+                    {t.uniName}
+                  </h3>
+                  <p className="mt-1 text-sm font-medium text-ink-2">{t.uniDegree[lang]}</p>
+                </div>
+              </div>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/[0.14] px-3 py-1.5 text-[0.72rem] font-bold text-emerald-400">
+                <BadgeCheck size={13} />
+                {t.gpa[lang]} {PROFILE.gpa} / {PROFILE.gpaScale}
+              </span>
+            </div>
+
+            <div className="mt-5 flex flex-wrap gap-2">
+              <Chip icon={<MapPin size={11} />}>{t.uniLocation[lang]}</Chip>
+              <Chip icon={<CalendarDays size={11} />}>{t.uniPeriod}</Chip>
+              <Chip icon={<BadgeCheck size={11} />}>{t.status[lang]}</Chip>
+            </div>
+
+            <div className="mt-6 flex flex-col gap-5 border-t border-hairline pt-6">
+              {rows.map(({ label, text }) => (
+                <div key={label} className="flex flex-col gap-1.5 md:flex-row md:gap-6">
+                  <div className="w-44 shrink-0 text-[0.62rem] font-bold tracking-[0.14em] text-ink-3 uppercase md:pt-1">
+                    {label}
+                  </div>
+                  <p className="text-sm leading-relaxed text-ink-2 md:text-[0.9rem] md:leading-loose">
+                    {text}
+                  </p>
+                </div>
               ))}
             </div>
-            <p style={{ fontSize: ".82rem", color: "var(--text2)", lineHeight: 1.75 }}>
-              {bold
-                ? desc.split(bold).map((part, i) =>
-                    i === 0
-                      ? <span key={i}>{part}<strong style={{ color: "var(--text)", fontWeight: 700 }}>{bold}</strong></span>
-                      : <span key={i}>{part}</span>
-                  )
-                : desc}
+          </motion.article>
+
+          {/* Sertifikasi */}
+          <div className="lg:col-span-3">
+            <p className="mb-4 text-[0.62rem] font-bold tracking-[0.16em] text-ink-3 uppercase">
+              {t.certsTitle[lang]}
             </p>
           </div>
-        ))}
+          {t.certs.map(({ issuer, title, date, logo, desc }) => (
+            <motion.article
+              key={title}
+              variants={reduce ? undefined : cardVariants}
+              className="group flex flex-col rounded-3xl bg-card shadow-card p-6 backdrop-blur-sm transition-shadow duration-300 hover:shadow-lift md:p-7"
+            >
+              <div className="flex items-start gap-3.5">
+                {/* Logo penerbit — latar terang tetap agar logo brand selalu terbaca */}
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white p-1.5 ring-1 ring-black/[0.06]">
+                  <Image
+                    src={logo}
+                    alt={`${issuer} logo`}
+                    width={44}
+                    height={44}
+                    className="h-full w-full object-contain"
+                  />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-[0.62rem] font-bold tracking-[0.14em] text-ink-3 uppercase">
+                      {issuer}
+                    </span>
+                    <span className="text-[0.62rem] font-semibold text-ink-4">·</span>
+                    <span className="inline-flex items-center gap-1 text-[0.62rem] font-semibold text-ink-4">
+                      <CalendarDays size={10} />
+                      {date}
+                    </span>
+                  </div>
+                  <h3 className="mt-1 text-[0.95rem] font-bold leading-snug tracking-tight text-ink">
+                    {title}
+                  </h3>
+                </div>
+              </div>
+              <p className="mt-4 text-[0.82rem] leading-relaxed text-ink-2">{desc[lang]}</p>
+            </motion.article>
+          ))}
+        </motion.div>
       </div>
-
-      <style>{`
-        .edu-grid {
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: 1.5rem;
-        }
-        .edu-card {
-          background: var(--card-bg);
-          border: 1px solid var(--border);
-          border-radius: 16px;
-          padding: 2rem;
-          transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .edu-featured {
-          grid-column: 1 / -1;
-          background: var(--surface);
-          border: 1.5px solid var(--border);
-        }
-        @media (max-width: 768px) {
-          .edu-grid { grid-template-columns: 1fr; }
-          .edu-featured { grid-column: auto; }
-        }
-      `}</style>
     </section>
   );
 }

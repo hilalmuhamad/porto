@@ -18,6 +18,40 @@
   --nav-bg: rgba(245, 244, 240, 0.88);
   --shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.1);
+
+  /* — Semantik UI (dipakai section bergaya zinc) — */
+  --panel: #fbfaf7;
+  --card: rgba(255, 255, 255, 0.78);
+  --card-hover: #ffffff;
+  --chip: rgba(20, 18, 14, 0.05);
+  --surface-solid: #ffffff;
+  --overlay: rgba(250, 249, 246, 0.85);
+  --overlay-strong: rgba(255, 255, 255, 0.86);
+  --overlay-soft: rgba(255, 255, 255, 0.5);
+  --line: #e3ded4;
+  --line-soft: rgba(227, 222, 212, 0.9);
+  --line-strong: #b9b2a5;
+  --ink: #14120e;
+  --ink-2: #5a564d;
+  --ink-3: #86817a;
+  --ink-4: #a9a49b;
+  --invert: #14120e;
+  --invert-hover: #000000;
+  --on-invert: #f7f6f2;
+  --orb: rgba(227, 222, 212, 0.6);
+  --orb-accent: rgba(16, 185, 129, 0.14);
+  --orb-accent-soft: rgba(16, 185, 129, 0.08);
+  --grid-line: rgba(15, 15, 15, 0.05);
+  --glow: rgba(15, 15, 15, 0.05);
+  --dot-idle: rgba(0, 0, 0, 0.18);
+
+  /* — Elevasi (pengganti outline) — */
+  --elevated: #eae6dd;
+  --elevated-hover: #e0dbcf;
+  --hairline: rgba(16, 16, 20, 0.09);
+  --shadow-soft: 0 1px 2px rgba(16, 16, 20, 0.05);
+  --shadow-card: 0 1px 2px rgba(16, 16, 20, 0.05), 0 14px 36px -18px rgba(16, 16, 20, 0.18);
+  --shadow-lift: 0 2px 4px rgba(16, 16, 20, 0.06), 0 22px 48px -20px rgba(16, 16, 20, 0.24);
 }
 
 [data-theme="dark"] {
@@ -36,7 +70,70 @@
   --nav-bg: rgba(12, 12, 11, 0.9);
   --shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
   --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.5);
+
+  /* — Semantik UI (dipakai section bergaya zinc) — */
+  --panel: #09090b;
+  --card: rgba(24, 24, 27, 0.5);
+  --card-hover: rgba(24, 24, 27, 0.85);
+  --chip: rgba(255, 255, 255, 0.055);
+  --surface-solid: #18181b;
+  --overlay: rgba(9, 9, 11, 0.82);
+  --overlay-strong: rgba(9, 9, 11, 0.8);
+  --overlay-soft: rgba(9, 9, 11, 0.4);
+  --line: #27272a;
+  --line-soft: rgba(39, 39, 42, 0.8);
+  --line-strong: #52525b;
+  --ink: #f4f4f5;
+  --ink-2: #a1a1aa;
+  --ink-3: #86817a;
+  --ink-4: #52525b;
+  --invert: #f0ede8;
+  --invert-hover: #ffffff;
+  --on-invert: #14120e;
+  --orb: rgba(63, 63, 70, 0.2);
+  --orb-accent: rgba(6, 78, 59, 0.5);
+  --orb-accent-soft: rgba(2, 44, 34, 0.5);
+  --grid-line: rgba(255, 255, 255, 0.035);
+  --glow: rgba(255, 255, 255, 0.07);
+  --dot-idle: rgba(255, 255, 255, 0.18);
+
+  /* — Elevasi (pengganti outline) — */
+  --elevated: #212125;
+  --elevated-hover: #2b2b31;
+  --hairline: rgba(255, 255, 255, 0.08);
+  --shadow-soft: 0 1px 0 rgba(255, 255, 255, 0.04) inset;
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 18px 44px -22px rgba(0, 0, 0, 0.75);
+  --shadow-lift: 0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 26px 60px -24px rgba(0, 0, 0, 0.85);
 }
+
+/* ══ UTILITAS SEMANTIK (ikut tema terang/gelap) ══ */
+@utility bg-panel { background-color: var(--panel); }
+@utility bg-card { background-color: var(--card); }
+@utility bg-chip { background-color: var(--chip); }
+@utility bg-surface-solid { background-color: var(--surface-solid); }
+@utility bg-overlay { background-color: var(--overlay); }
+@utility bg-line { background-color: var(--line); }
+@utility bg-line-soft { background-color: var(--line-soft); }
+@utility bg-invert { background-color: var(--invert); }
+@utility bg-invert-hover { background-color: var(--invert-hover); }
+@utility bg-orb { background-color: var(--orb); }
+
+@utility border-line { border-color: var(--line); }
+@utility border-line-soft { border-color: var(--line-soft); }
+@utility border-line-strong { border-color: var(--line-strong); }
+@utility border-hairline { border-color: var(--hairline); }
+
+@utility bg-elevated { background-color: var(--elevated); }
+@utility bg-elevated-hover { background-color: var(--elevated-hover); }
+@utility shadow-soft { box-shadow: var(--shadow-soft); }
+@utility shadow-card { box-shadow: var(--shadow-card); }
+@utility shadow-lift { box-shadow: var(--shadow-lift); }
+
+@utility text-ink { color: var(--ink); }
+@utility text-ink-2 { color: var(--ink-2); }
+@utility text-ink-3 { color: var(--ink-3); }
+@utility text-ink-4 { color: var(--ink-4); }
+@utility text-on-invert { color: var(--on-invert); }
 
 /* ══ BASE ══ */
 html { scroll-behavior: smooth; }
@@ -142,12 +239,23 @@ section { padding: 6rem 5rem; position: relative; }
 /* ══ SCROLL REVEAL ══ */
 .reveal {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.65s ease, transform 0.65s ease;
+  transform: translateY(26px) scale(0.985);
+  filter: blur(6px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 .reveal.in {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; filter: none; transition: none; }
+  html { scroll-behavior: auto; }
 }
 
 /* ══ RESPONSIVE ══ */

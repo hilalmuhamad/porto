@@ -2,7 +2,7 @@ import Navbar     from "@/components/navbar";
 import Hero        from "@/components/sections/hero";
 import Stats       from "@/components/sections/stats";
 import About       from "@/components/sections/about";
-import Skills      from "@/components/sections/skills";
+import TechSkills  from "@/components/sections/techskills";
 import Projects    from "@/components/sections/projects";
 import Experience  from "@/components/sections/experience";
 import Education   from "@/components/sections/education";
@@ -16,13 +16,13 @@ export default function Home() {
       <Stats />
       <About />
       <div className="divider" />
-      <Skills />
-      <div className="divider" />
       <Projects />
       <div className="divider" />
       <Experience />
       <div className="divider" />
       <Education />
+      <div className="divider" />
+      <TechSkills />
       <div className="divider" />
       <Contact />
     </main>

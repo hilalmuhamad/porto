@@ -1,42 +1,34 @@
 "use client";
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { Menu, X, Sun, Moon, ArrowUpRight } from "lucide-react";
 import { useTheme } from "@/lib/ThemeProvider";
 import { useLanguage, STR, type Lang } from "@/lib/LanguageProvider";
+import { PROFILE } from "@/lib/portfolio";
 
-function LangSwitch({ compact = false }: { compact?: boolean }) {
+/* ── Pemilih bahasa ID / EN ── */
+function LangSwitch({ full = false }: { full?: boolean }) {
   const { lang, setLang } = useLanguage();
   const opts: Lang[] = ["id", "en"];
   return (
     <div
       role="group"
       aria-label="Language / Bahasa"
-      style={{
-        display: "flex", alignItems: "center", gap: "2px",
-        background: "var(--tag-bg)",
-        border: "1px solid var(--border)",
-        borderRadius: "999px", padding: "2px", flexShrink: 0,
-        width: compact ? "100%" : "auto",
-      }}
+      className={`flex items-center gap-0.5 rounded-full bg-chip p-0.5 ${
+        full ? "w-full" : ""
+      }`}
     >
       {opts.map((o) => {
         const on = lang === o;
         return (
           <button
             key={o}
+            type="button"
             onClick={() => setLang(o)}
             aria-pressed={on}
-            style={{
-              border: "none", cursor: "pointer",
-              flex: compact ? 1 : "none",
-              padding: compact ? ".6rem 0" : ".32rem .6rem",
-              borderRadius: "999px",
-              fontSize: compact ? ".78rem" : ".68rem", fontWeight: 700,
-              letterSpacing: ".06em",
-              background: on ? "var(--accent)" : "transparent",
-              color: on ? "var(--accent-inv)" : "var(--text2)",
-              transition: "all .18s",
-              fontFamily: "'Manrope',sans-serif",
-            }}
+            className={`rounded-full text-[0.66rem] font-bold tracking-[0.06em] transition-colors duration-200 ${
+              full ? "flex-1 py-2.5 text-[0.75rem]" : "px-2.5 py-1.5"
+            } ${on ? "bg-invert text-on-invert" : "text-ink-2 hover:text-ink"}`}
           >
             {o.toUpperCase()}
           </button>
@@ -50,236 +42,224 @@ export default function Navbar() {
   const { theme, toggle } = useTheme();
   const { lang } = useLanguage();
   const NAV_LINKS = STR.nav.links[lang];
+  const reduce = useReducedMotion();
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("");
   const [scrolled, setScrolled] = useState(false);
 
+  /* Bayangan & kerapatan pill mengikuti posisi scroll */
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // IntersectionObserver for active link — lebih akurat daripada offsetTop
+  /* Sorotan menu aktif — semua section yang punya tautan navigasi */
   useEffect(() => {
-    const ids = ["about", "projects", "experience", "education", "contact"];
+    const ids = ["hero", "about", "projects", "experience", "education", "skills", "contact"];
     const obs = new IntersectionObserver(
       (entries) => {
-        entries.forEach((e) => { if (e.isIntersecting) setActive(e.target.id); });
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActive(e.target.id);
+        });
       },
       { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
     );
-    ids.forEach((id) => { const el = document.getElementById(id); if (el) obs.observe(el); });
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) obs.observe(el);
+    });
     return () => obs.disconnect();
   }, []);
 
-  // lock scroll + esc to close
+  /* Kunci scroll + tutup dengan Esc saat menu mobile terbuka */
   useEffect(() => {
-    if (open) document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "";
-    const esc = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
-    window.addEventListener("keydown", esc);
-    return () => window.removeEventListener("keydown", esc);
+    document.body.style.overflow = open ? "hidden" : "";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
   }, [open]);
 
   const close = () => setOpen(false);
 
-  const linkStyle = (href: string): React.CSSProperties => {
+  const linkClass = (href: string) => {
     const isActive = active === href.replace("#", "");
-    return {
-      fontSize: ".78rem", fontWeight: isActive ? 600 : 500,
-      color: isActive ? "var(--accent-inv)" : "var(--text2)",
-      textDecoration: "none",
-      padding: ".42rem .85rem", borderRadius: "999px",
-      letterSpacing: ".01em",
-      background: isActive ? "var(--accent)" : "transparent",
-      transition: "all .18s",
-      border: "1px solid transparent",
-    };
+    return `relative rounded-full px-3.5 py-2 text-[0.78rem] font-medium transition-colors duration-200 ${
+      isActive ? "bg-chip text-ink" : "text-ink-2 hover:bg-chip hover:text-ink"
+    }`;
   };
 
   return (
     <>
-      <nav
+      <motion.nav
         aria-label="Primary"
-        style={{
-          position: "fixed",
-          top: scrolled ? ".85rem" : "1.15rem",
-          left: "50%",
-          transform: "translateX(-50%)",
-          zIndex: 200,
-          display: "flex",
-          alignItems: "center",
-          gap: ".35rem",
-          background: "var(--nav-bg)",
-          backdropFilter: "blur(14px)",
-          WebkitBackdropFilter: "blur(14px)",
-          border: "1px solid var(--border)",
-          borderRadius: "999px",
-          padding: ".38rem .38rem .38rem .6rem",
-          boxShadow: scrolled ? "var(--shadow-lg)" : "var(--shadow)",
-          whiteSpace: "nowrap",
-          transition: "top .25s, box-shadow .25s, background .25s",
-          maxWidth: "96vw",
-        }}
+        initial={reduce ? false : { opacity: 0, y: -24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+        style={{ x: "-50%" }}
+        className={`fixed left-1/2 z-[200] flex max-w-[96vw] items-center gap-1 rounded-full bg-overlay shadow-card p-1.5 pl-2 backdrop-blur-xl transition-[top,box-shadow] duration-300 ${
+          scrolled ? "top-3 shadow-2xl shadow-black/25" : "top-4"
+        }`}
       >
-        {/* Logo + Name */}
-        <a href="#" aria-label="Home" style={{ display: "flex", alignItems: "center", gap: ".6rem", textDecoration: "none", flexShrink: 0 }}>
-          <div style={{
-            width: "32px", height: "32px", borderRadius: "50%",
-            background: "var(--accent)", color: "var(--accent-inv)",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            fontFamily: "'Playfair Display',serif", fontSize: ".9rem", fontWeight: 800,
-            letterSpacing: "-.02em",
-          }}>H</div>
-          <span className="nav-name" style={{
-            fontFamily: "'Manrope',sans-serif", fontSize: ".82rem", fontWeight: 700,
-            color: "var(--text)", letterSpacing: "-.01em", paddingRight: ".35rem",
-          }}>Hilal</span>
+        {/* Logo + nama */}
+        <a
+          href="#hero"
+          aria-label="Hilal Muhamad — Home"
+          className="flex shrink-0 items-center gap-2.5 rounded-full pr-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/60"
+        >
+          <span
+            style={{ fontFamily: "'Playfair Display', serif" }}
+            className="flex h-8 w-8 items-center justify-center rounded-full bg-invert text-[0.9rem] font-extrabold text-on-invert"
+          >
+            H
+          </span>
+          <span className="hidden text-[0.82rem] font-bold tracking-tight text-ink sm:block">
+            Hilal
+          </span>
         </a>
 
-        <span aria-hidden style={{ width: "1px", height: "18px", background: "var(--border)", flexShrink: 0 }} className="nav-sep" />
+        <span aria-hidden className="mx-1 hidden h-4 w-px bg-line lg:block" />
 
-        {/* Desktop links */}
-        <div className="nav-desktop-links" style={{ display: "flex", gap: ".15rem", alignItems: "center" }}>
+        {/* Tautan desktop */}
+        <div className="hidden items-center gap-0.5 lg:flex">
           {NAV_LINKS.map(({ label, href }) => (
-            <a key={href} href={href} style={linkStyle(href)}
-              onMouseEnter={(e) => { if (active !== href.replace("#","")) { (e.currentTarget as HTMLAnchorElement).style.color = "var(--text)"; (e.currentTarget as HTMLAnchorElement).style.background = "var(--tag-bg)"; } }}
-              onMouseLeave={(e) => { if (active !== href.replace("#","")) { (e.currentTarget as HTMLAnchorElement).style.color = "var(--text2)"; (e.currentTarget as HTMLAnchorElement).style.background = "transparent"; } }}
-            >{label}</a>
+            <a
+              key={href}
+              href={href}
+              aria-current={active === href.replace("#", "") ? "true" : undefined}
+              className={linkClass(href)}
+            >
+              {label}
+            </a>
           ))}
         </div>
 
-        {/* Right actions */}
-        <div style={{ display: "flex", alignItems: "center", gap: ".35rem", flexShrink: 0, marginLeft: ".15rem" }}>
+        {/* Aksi */}
+        <div className="ml-1 flex shrink-0 items-center gap-1.5">
           <LangSwitch />
-          <a href="#contact" onClick={close} className="nav-cta" style={{
-            background: "var(--accent)", color: "var(--accent-inv)",
-            fontSize: ".76rem", fontWeight: 700,
-            padding: ".5rem 1rem", borderRadius: "999px",
-            textDecoration: "none", display: "inline-flex", alignItems: "center", gap: ".35rem",
-            letterSpacing: ".01em", transition: "transform .18s, opacity .18s",
-            border: "1px solid var(--border)",
-          }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(-1px)"; (e.currentTarget as HTMLAnchorElement).style.opacity = ".92"; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLAnchorElement).style.opacity = "1"; }}
+
+          <a
+            href="#contact"
+            onClick={close}
+            className="hidden items-center gap-1.5 rounded-full bg-invert px-4 py-2 text-[0.75rem] font-bold text-on-invert transition-transform duration-200 hover:-translate-y-0.5 md:inline-flex"
           >
-            {STR.nav.contact[lang]} <span aria-hidden style={{ fontSize: ".7rem" }}>↗</span>
+            {STR.nav.contact[lang]}
+            <ArrowUpRight size={13} />
           </a>
 
-          {/* Theme toggle — icon, bukan emoji */}
-          <button onClick={toggle} aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`} title="Toggle theme" style={{
-            width: "34px", height: "34px", borderRadius: "50%",
-            background: "var(--tag-bg)", border: "1px solid var(--border)",
-            cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
-            color: "var(--text2)", flexShrink: 0, transition: "background .18s, transform .18s",
-          }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "var(--border)"; (e.currentTarget as HTMLButtonElement).style.color = "var(--text)"; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "var(--tag-bg)"; (e.currentTarget as HTMLButtonElement).style.color = "var(--text2)"; }}
+          <button
+            type="button"
+            onClick={toggle}
+            aria-label={theme === "light" ? STR.nav.toDark[lang] : STR.nav.toLight[lang]}
+            title={theme === "light" ? STR.nav.toDark[lang] : STR.nav.toLight[lang]}
+            className="flex h-8 w-8 items-center justify-center rounded-full bg-chip text-ink-2 transition-colors duration-200 hover:text-ink"
           >
-            {theme === "light" ? (
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>
-            ) : (
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5" /><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" /></svg>
-            )}
+            {theme === "light" ? <Moon size={14} /> : <Sun size={14} />}
           </button>
 
-          {/* Hamburger — hanya mobile */}
-          <button onClick={() => setOpen((v) => !v)} aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} style={{
-            display: "none", width: "34px", height: "34px", borderRadius: "50%",
-            background: "var(--tag-bg)", border: "1px solid var(--border)",
-            cursor: "pointer", alignItems: "center", justifyContent: "center",
-            flexDirection: "column", gap: "4px", flexShrink: 0,
-          }} className="hamburger-btn">
-            {[0, 1, 2].map((i) => (
-              <span key={i} style={{
-                display: "block", width: "14px", height: "1.7px",
-                background: "var(--text)", borderRadius: "2px",
-                transition: "all .26s cubic-bezier(.4,0,.2,1)",
-                transform: open
-                  ? i === 0 ? "translateY(5.7px) rotate(45deg)"
-                    : i === 2 ? "translateY(-5.7px) rotate(-45deg)" : "scaleX(0)"
-                  : "none",
-                opacity: open && i === 1 ? 0 : 1,
-              }} />
-            ))}
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-label={open ? STR.nav.closeMenu[lang] : STR.nav.openMenu[lang]}
+            aria-expanded={open}
+            className="flex h-8 w-8 items-center justify-center rounded-full bg-chip text-ink-2 transition-colors duration-200 hover:text-ink lg:hidden"
+          >
+            {open ? <X size={15} /> : <Menu size={15} />}
           </button>
         </div>
-      </nav>
+      </motion.nav>
 
-      {/* Mobile menu — sheet, bukan fullscreen brutal */}
-      {open && (
-        <>
-          <button aria-label="Close menu backdrop" onClick={close} style={{
-            position: "fixed", inset: 0, zIndex: 198,
-            background: "rgba(0,0,0,0.22)", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)",
-            border: "none", cursor: "pointer",
-          }} />
-          <div role="dialog" aria-modal="true" aria-label={STR.nav.menuLabel[lang]} style={{
-            position: "fixed", top: "4.2rem", left: "50%", transform: "translateX(-50%)",
-            zIndex: 199, width: "min(92vw, 380px)",
-            background: "var(--surface)", border: "1px solid var(--border)",
-            borderRadius: "20px", boxShadow: "var(--shadow-lg)",
-            padding: "1rem", display: "flex", flexDirection: "column", gap: ".35rem",
-          }}>
-            {NAV_LINKS.map(({ label, href }) => {
-              const isActive = active === href.replace("#", "");
-              return (
-                <a key={href} href={href} onClick={close} style={{
-                  display: "flex", alignItems: "center", justifyContent: "space-between",
-                  padding: ".85rem 1rem", borderRadius: "12px",
-                  background: isActive ? "var(--bg2)" : "transparent",
-                  border: `1px solid ${isActive ? "var(--border)" : "transparent"}`,
-                  color: isActive ? "var(--text)" : "var(--text2)",
-                  textDecoration: "none", fontSize: ".92rem", fontWeight: isActive ? 600 : 500,
-                  letterSpacing: "-.01em", transition: "background .15s",
-                }}>
-                  {label}
-                  <span style={{ fontSize: ".8rem", opacity: isActive ? 1 : .35 }}>→</span>
+      {/* ── Menu mobile ── */}
+      <AnimatePresence>
+        {open && (
+          <>
+            <motion.button
+              key="backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={close}
+              aria-label={STR.nav.closeMenu[lang]}
+              className="fixed inset-0 z-[198] cursor-default bg-black/50 backdrop-blur-sm lg:hidden"
+            />
+            <motion.div
+              key="sheet"
+              role="dialog"
+              aria-modal="true"
+              aria-label={STR.nav.menuLabel[lang]}
+              initial={reduce ? false : { opacity: 0, y: -14, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={reduce ? undefined : { opacity: 0, y: -10, scale: 0.98 }}
+              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              className="fixed top-[4.5rem] left-1/2 z-[199] w-[min(92vw,380px)] -translate-x-1/2 rounded-3xl bg-overlay shadow-card p-3 backdrop-blur-xl lg:hidden"
+            >
+              <div className="flex flex-col gap-1">
+                {NAV_LINKS.map(({ label, href }) => {
+                  const isActive = active === href.replace("#", "");
+                  return (
+                    <a
+                      key={href}
+                      href={href}
+                      onClick={close}
+                      className={`flex items-center justify-between rounded-2xl px-4 py-3 text-[0.88rem] font-medium transition-colors duration-200 ${
+                        isActive
+                          ? "bg-chip text-ink"
+                          : "text-ink-2 hover:bg-chip hover:text-ink"
+                      }`}
+                    >
+                      {label}
+                      <ArrowUpRight
+                        size={14}
+                        className={isActive ? "text-emerald-400" : "text-ink-4"}
+                      />
+                    </a>
+                  );
+                })}
+              </div>
+
+              <div className="my-3 h-px bg-line" />
+
+              <div className="flex flex-col gap-2">
+                <a
+                  href="#contact"
+                  onClick={close}
+                  className="flex items-center justify-center gap-1.5 rounded-2xl bg-invert px-4 py-3 text-[0.8rem] font-bold text-on-invert"
+                >
+                  {STR.nav.contact[lang]}
+                  <ArrowUpRight size={14} />
                 </a>
-              );
-            })}
-            <div style={{ height: "1px", background: "var(--border)", margin: ".4rem 0" }} />
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: ".6rem" }}>
-              <a href="#contact" onClick={close} style={{
-                textAlign: "center", padding: ".75rem 1rem", borderRadius: "12px",
-                background: "var(--accent)", color: "var(--accent-inv)",
-                textDecoration: "none", fontSize: ".82rem", fontWeight: 700,
-              }}>{STR.nav.contact[lang]} ↗</a>
-              <a href="/CV_Hilal_Muhamad.pdf" download="CV_Hilal_Muhamad.pdf" onClick={close} style={{
-                textAlign: "center", padding: ".75rem 1rem", borderRadius: "12px",
-                background: "transparent", color: "var(--text)", border: "1.5px solid var(--border)",
-                textDecoration: "none", fontSize: ".82rem", fontWeight: 600,
-              }}>{STR.nav.downloadCv[lang]}</a>
-            </div>
-            <LangSwitch compact />
-            <button onClick={toggle} style={{
-              marginTop: ".2rem", width: "100%", padding: ".65rem 1rem",
-              borderRadius: "12px", border: "1px solid var(--border)",
-              background: "var(--bg2)", color: "var(--text2)",
-              fontSize: ".78rem", fontWeight: 600, cursor: "pointer",
-              display: "flex", alignItems: "center", justifyContent: "center", gap: ".5rem",
-            }}>
-              {theme === "light" ? (
-                <><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg> {STR.nav.toDark[lang]}</>
-              ) : (
-                <><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="12" cy="12" r="5" /><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" /></svg> {STR.nav.toLight[lang]}</>
-              )}
-            </button>
-          </div>
-        </>
-      )}
+                <a
+                  href={PROFILE.cvUrl}
+                  download="CV_Hilal_Muhamad.pdf"
+                  onClick={close}
+                  className="rounded-2xl bg-chip px-4 py-3 text-center text-[0.8rem] font-semibold text-ink transition-colors duration-200 hover:bg-elevated-hover"
+                >
+                  {STR.nav.downloadCv[lang]}
+                </a>
+              </div>
 
-      <style>{`
-        @media (max-width: 860px) {
-          .nav-desktop-links, .nav-sep, .nav-name { display: none !important; }
-          .hamburger-btn { display: flex !important; }
-        }
-        @media (max-width: 480px) {
-          nav { padding: .38rem .38rem .38rem .45rem !important; }
-          .nav-cta { padding: .48rem .85rem !important; font-size: .74rem !important; }
-        }
-      `}</style>
+              <div className="mt-3 flex items-center gap-2">
+                <LangSwitch full />
+                <button
+                  type="button"
+                  onClick={toggle}
+                  aria-label={theme === "light" ? STR.nav.toDark[lang] : STR.nav.toLight[lang]}
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-chip text-ink-2 transition-colors duration-200 hover:text-ink"
+                >
+                  {theme === "light" ? <Moon size={16} /> : <Sun size={16} />}
+                </button>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </>
   );
 }

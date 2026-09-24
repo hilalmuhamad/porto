@@ -15,28 +15,6 @@ export default function Skills() {
 
   return (
     <section id="skills" style={{ background: "var(--bg2)" }}>
-      <div className="sec-label">Services</div>
-
-      {/* Header */}
-      <div className="skills-header reveal">
-        <h2 style={{
-          fontFamily: "'Playfair Display',serif",
-          fontSize: "clamp(2rem,4vw,3rem)",
-          lineHeight: 1.1, letterSpacing: "-.02em", color: "var(--text)",
-        }}>
-          <span style={{ fontWeight: 900 }}>Comprehensive</span>{" "}
-          <span style={{ fontStyle: "italic", color: "var(--text2)" }}>design &</span><br />
-          <span style={{ fontStyle: "italic", color: "var(--text2)" }}>development</span>{" "}
-          <span style={{ fontWeight: 900 }}>solutions.</span>
-        </h2>
-        <p style={{
-          fontSize: ".9rem", color: "var(--text2)", lineHeight: 1.7,
-          textAlign: "right", maxWidth: "320px", marginLeft: "auto",
-        }}>
-          Helping build scalable, secure, and modern digital products through impactful engineering and robust development.
-        </p>
-      </div>
-
       {/* Grid */}
       <div className="skills-grid">
         {SKILLS.map(({ icon, name, desc, tags }) => (
@@ -60,13 +38,6 @@ export default function Skills() {
       </div>
 
       <style>{`
-        .skills-header {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 4rem;
-          align-items: end;
-          margin-bottom: 3.5rem;
-        }
         .skills-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
@@ -79,8 +50,6 @@ export default function Skills() {
           transition: background 0.2s;
         }
         @media (max-width: 1024px) {
-          .skills-header { grid-template-columns: 1fr; gap: 1.5rem; }
-          .skills-header p { text-align: left; margin-left: 0; }
           .skills-grid { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 768px) {

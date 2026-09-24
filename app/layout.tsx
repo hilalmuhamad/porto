@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/lib/ThemeProvider";
 import { LanguageProvider } from "@/lib/LanguageProvider";
+import Splash from "@/components/splash";
+import ScrollProgress from "@/components/scroll-progress";
 
 export const metadata: Metadata = {
   title: "Hilal Muhamad Abdul Gani – Full-Stack & Mobile Developer | Flutter · Laravel · React",
@@ -30,7 +32,11 @@ export default function RootLayout({
     <html lang="id" data-theme="dark" suppressHydrationWarning>
       <body>
         <ThemeProvider>
-          <LanguageProvider>{children}</LanguageProvider>
+          <LanguageProvider>
+            <ScrollProgress />
+            <Splash />
+            {children}
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

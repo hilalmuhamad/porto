@@ -1,236 +1,257 @@
 "use client";
 import { useState } from "react";
-import { useScrollReveal } from "@/lib/useScrollReveal";
+import { motion, useReducedMotion } from "framer-motion";
+import { Mail, MessageCircle, Send, ArrowUpRight, Check } from "lucide-react";
+import { useLanguage, STR } from "@/lib/LanguageProvider";
+import { PROFILE } from "@/lib/portfolio";
 
-const LINKS = [
-  { icon: "✉️", label: "Email",    val: "hilalabdulgani@gmail.com",    href: "mailto:hilalabdulgani@gmail.com" },
-  { icon: "💼", label: "LinkedIn", val: "linkedin.com/in/hilal-muhamad", href: "https://linkedin.com/in/hilal-muhamad" },
-  { icon: "🐙", label: "GitHub",   val: "github.com/hilalmuhamad",      href: "https://github.com/hilalmuhamad" },
-  { icon: "📱", label: "WhatsApp", val: "081563955598",                  href: "https://wa.me/6281563955598" },
-];
+const GithubIcon = ({ size = 16 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+    <path d="M12 0c-6.63 0-12 5.37-12 12 0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.83 1.24 1.83 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.17 0 0 1-.32 3.3 1.23.95-.26 1.98-.39 3-.39s2.05.13 3 .39c2.29-1.55 3.29-1.23 3.29-1.23.67 1.65.26 2.87.13 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.8 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.82.58 4.77-1.59 8.21-6.09 8.21-11.39 0-6.63-5.37-12-12-12z" />
+  </svg>
+);
 
-const inputStyle: React.CSSProperties = {
-  background: "var(--surface)", border: "1.5px solid var(--border)",
-  borderRadius: "10px", padding: ".85rem 1rem", color: "var(--text)",
-  fontFamily: "'Manrope',sans-serif", fontSize: ".85rem",
-  outline: "none", width: "100%", transition: "border-color .2s",
-};
+const LinkedinIcon = ({ size = 16 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+    <path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.27c-.97 0-1.75-.79-1.75-1.76s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.76-1.75 1.76zm15.5 12.27h-3v-5.6c0-3.37-4-3.11-4 0v5.6h-3v-11h3v1.77c1.4-2.59 7-2.78 7 2.48v6.75z" />
+  </svg>
+);
+
+const WHATSAPP = "https://wa.me/6281563955598";
+
+const inputClass =
+  "w-full rounded-xl border border-hairline bg-surface-solid px-4 py-3 text-sm text-ink outline-none transition-colors duration-200 placeholder:text-ink-4 focus:border-line-strong";
 
 export default function Contact() {
-  useScrollReveal();
+  const { lang } = useLanguage();
+  const t = STR.contact;
+  const reduce = useReducedMotion();
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [status, setStatus] = useState<"idle" | "sent" | "error">("idle");
-  const [hovered, setHovered] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSend = () => {
-    if (!form.name || !form.email || !form.message) { setStatus("error"); setTimeout(() => setStatus("idle"), 2500); return; }
-    const mailto = `mailto:hilalabdulgani@gmail.com?subject=${encodeURIComponent(form.subject || "Portfolio Contact")}&body=${encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`)}`;
+    if (!form.name || !form.email || !form.message) {
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 2500);
+      return;
+    }
+    const subject = form.subject || (lang === "id" ? "Kontak dari Portofolio" : "Portfolio Contact");
+    const mailto = `mailto:${PROFILE.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
+      `${t.name[lang]}: ${form.name}\n${t.email[lang]}: ${form.email}\n\n${form.message}`
+    )}`;
     window.open(mailto);
     setStatus("sent");
     setTimeout(() => setStatus("idle"), 4000);
   };
 
+  const links = [
+    { label: "Email", val: PROFILE.email, href: `mailto:${PROFILE.email}`, Icon: () => <Mail size={17} /> },
+    { label: "LinkedIn", val: "linkedin.com/in/hilal-muhamad", href: PROFILE.linkedin, Icon: () => <LinkedinIcon /> },
+    { label: "GitHub", val: "github.com/hilalmuhamad", href: PROFILE.github, Icon: () => <GithubIcon /> },
+    { label: "WhatsApp", val: "0815-6395-5598", href: WHATSAPP, Icon: () => <MessageCircle size={17} /> },
+  ];
+
   return (
     <>
-      <section id="contact" style={{ background: "var(--bg2)" }}>
-        <div className="sec-label">Get In Touch</div>
-
-        <h2 className="reveal" style={{
-          fontFamily: "'Playfair Display',serif",
-          fontSize: "clamp(2.5rem,5vw,4.5rem)",
-          lineHeight: 1.0, letterSpacing: "-.03em",
-          color: "var(--text)", marginBottom: "3.5rem",
-        }}>
-          <span style={{ fontWeight: 900 }}>Let&apos;s build</span><br />
-          <span style={{ fontStyle: "italic", color: "var(--text2)" }}>something</span><br />
-          <span style={{ fontWeight: 900 }}>great</span>{" "}
-          <span style={{ fontStyle: "italic", color: "var(--text2)" }}>together.</span>
-        </h2>
-
-        <div className="contact-grid">
-          {/* Left: info + links */}
-          <div className="reveal">
-            <p style={{ fontSize: ".9rem", color: "var(--text2)", lineHeight: 1.8, marginBottom: "1.5rem" }}>
-              Saya <strong style={{ color: "var(--text)", fontWeight: 600 }}>Fresh Graduate D3 Teknik Informatika (3.72/4.00)</strong>, tersedia <strong style={{ color: "var(--text)", fontWeight: 600 }}>full-time mulai Oktober 2026</strong> untuk posisi{" "}
-              <strong style={{ color: "var(--text)", fontWeight: 600 }}>Full-Stack / Mobile (Flutter) / Back-End Developer</strong>.
-              Open to on-site Bandung / Jabodetabek & remote. Response &lt;24 jam.
+      <section id="contact" className="px-4 py-20 sm:px-6 md:py-24">
+        <div className="mx-auto w-full max-w-6xl">
+          {/* Header */}
+          <div className="reveal mb-10 md:mb-12">
+            <p className="mb-2 text-xs font-bold tracking-[0.22em] text-ink-3 uppercase">
+              {t.eyebrow[lang]}
             </p>
-
-            {/* Available badge */}
-            <div style={{
-              display: "inline-flex", alignItems: "center", gap: ".6rem",
-              padding: ".5rem 1rem", background: "rgba(34,197,94,0.08)",
-              border: "1px solid rgba(34,197,94,0.25)", borderRadius: "999px",
-              marginBottom: "1.8rem",
-            }}>
-              <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#22c55e", display: "block" }} />
-              <span style={{ fontSize: ".75rem", fontWeight: 500, color: "#22c55e", letterSpacing: ".06em" }}>
-                Currently available · Response within 24h
-              </span>
-            </div>
-
-            {/* Contact links */}
-            <div style={{ display: "flex", flexDirection: "column", gap: ".8rem" }}>
-              {LINKS.map(({ icon, label, val, href }) => (
-                <a key={label} href={href}
-                  target={href.startsWith("http") ? "_blank" : undefined}
-                  rel="noreferrer"
-                  onMouseEnter={() => setHovered(label)}
-                  onMouseLeave={() => setHovered(null)}
-                  style={{
-                    display: "flex", alignItems: "center", gap: "1rem",
-                    padding: ".9rem 1.1rem",
-                    background: hovered === label ? "rgba(0,0,0,0.02)" : "var(--surface)",
-                    border: `1.5px solid ${hovered === label ? "var(--text)" : "var(--border)"}`,
-                    borderRadius: "12px", textDecoration: "none",
-                    transform: hovered === label ? "translateX(5px)" : "translateX(0)",
-                    transition: "all .2s",
-                  }}
-                >
-                  <span style={{ fontSize: "1.1rem", width: "32px", textAlign: "center", flexShrink: 0 }}>{icon}</span>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: ".62rem", fontWeight: 600, color: "var(--text3)", letterSpacing: ".1em", textTransform: "uppercase" }}>{label}</div>
-                    <div style={{ fontSize: ".85rem", fontWeight: 500, color: "var(--text)", marginTop: ".1rem" }}>{val}</div>
-                  </div>
-                  <span style={{
-                    color: hovered === label ? "var(--text)" : "var(--text3)",
-                    fontSize: ".9rem", transition: "all .2s",
-                    transform: hovered === label ? "rotate(-45deg)" : "none",
-                    flexShrink: 0,
-                  }}>↗</span>
-                </a>
-              ))}
-            </div>
+            <h2
+              style={{ fontFamily: "'Playfair Display', serif" }}
+              className="text-3xl font-black tracking-tight text-ink sm:text-4xl md:text-5xl"
+            >
+              {t.titleA[lang]}{" "}
+              <span className="font-bold text-ink-2 italic">{t.titleB[lang]}</span>
+            </h2>
+            <p className="mt-5 max-w-2xl text-sm leading-relaxed text-ink-2 md:text-base">
+              {t.lead[lang]}
+            </p>
           </div>
 
-          {/* Right: form */}
-          <div className="reveal">
-            <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-              {/* Name + Email */}
-              <div className="form-row">
-                <div style={{ display: "flex", flexDirection: "column", gap: ".45rem" }}>
-                  <label style={{ fontSize: ".68rem", fontWeight: 600, color: "var(--text3)", letterSpacing: ".1em", textTransform: "uppercase" }}>Name *</label>
-                  <input name="name" type="text" placeholder="Your name" value={form.name} onChange={handleChange}
-                    style={{ ...inputStyle, borderColor: status === "error" && !form.name ? "#ef4444" : "var(--border)" }}
-                    onFocus={(e) => (e.currentTarget.style.borderColor = "var(--text)")}
-                    onBlur={(e) => (e.currentTarget.style.borderColor = "var(--border)")}
-                  />
-                </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: ".45rem" }}>
-                  <label style={{ fontSize: ".68rem", fontWeight: 600, color: "var(--text3)", letterSpacing: ".1em", textTransform: "uppercase" }}>Email *</label>
-                  <input name="email" type="email" placeholder="your@email.com" value={form.email} onChange={handleChange}
-                    style={{ ...inputStyle, borderColor: status === "error" && !form.email ? "#ef4444" : "var(--border)" }}
-                    onFocus={(e) => (e.currentTarget.style.borderColor = "var(--text)")}
-                    onBlur={(e) => (e.currentTarget.style.borderColor = "var(--border)")}
-                  />
+          <div className="grid grid-cols-1 gap-5 lg:grid-cols-5 lg:gap-6">
+            {/* Kiri — status & tautan */}
+            <div className="reveal flex flex-col gap-4 lg:col-span-2">
+              <div className="flex items-center gap-3 rounded-3xl bg-emerald-500/[0.08] px-5 py-4">
+                <span className="relative flex h-2.5 w-2.5 shrink-0">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
+                </span>
+                <div>
+                  <div className="text-[0.8rem] font-bold text-ink">{t.available[lang]}</div>
+                  <div className="text-[0.7rem] text-ink-2">{t.response[lang]}</div>
                 </div>
               </div>
 
-              {/* Subject */}
-              <div style={{ display: "flex", flexDirection: "column", gap: ".45rem" }}>
-                <label style={{ fontSize: ".68rem", fontWeight: 600, color: "var(--text3)", letterSpacing: ".1em", textTransform: "uppercase" }}>Subject</label>
-                <input name="subject" type="text" placeholder="Internship Opportunity / Collaboration" value={form.subject} onChange={handleChange}
-                  style={inputStyle}
-                  onFocus={(e) => (e.currentTarget.style.borderColor = "var(--text)")}
-                  onBlur={(e) => (e.currentTarget.style.borderColor = "var(--border)")}
-                />
+              <div className="flex flex-col gap-2.5">
+                {links.map(({ label, val, href, Icon }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target={href.startsWith("http") ? "_blank" : undefined}
+                    rel="noopener noreferrer"
+                    className="group flex items-center gap-4 rounded-2xl bg-card shadow-soft px-4 py-3.5 backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card"
+                  >
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-elevated text-ink-2 transition-colors duration-200 group-hover:text-ink">
+                      <Icon />
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-[0.62rem] font-bold tracking-[0.14em] text-ink-3 uppercase">
+                        {label}
+                      </span>
+                      <span className="mt-0.5 block truncate text-[0.85rem] font-medium text-ink">
+                        {val}
+                      </span>
+                    </span>
+                    <ArrowUpRight
+                      size={15}
+                      className="shrink-0 text-ink-4 transition-all duration-200 group-hover:-translate-y-0.5 group-hover:text-ink"
+                    />
+                  </a>
+                ))}
               </div>
+            </div>
 
-              {/* Message */}
-              <div style={{ display: "flex", flexDirection: "column", gap: ".45rem" }}>
-                <label style={{ fontSize: ".68rem", fontWeight: 600, color: "var(--text3)", letterSpacing: ".1em", textTransform: "uppercase" }}>Message *</label>
-                <textarea name="message" placeholder="Halo Hilal, saya tertarik untuk..." rows={5} value={form.message} onChange={handleChange}
-                  style={{ ...inputStyle, resize: "vertical", minHeight: "130px", borderColor: status === "error" && !form.message ? "#ef4444" : "var(--border)" }}
-                  onFocus={(e) => (e.currentTarget.style.borderColor = "var(--text)")}
-                  onBlur={(e) => (e.currentTarget.style.borderColor = "var(--border)")}
-                />
+            {/* Kanan — formulir */}
+            <div className="reveal lg:col-span-3">
+              <div className="rounded-3xl bg-card shadow-card p-6 backdrop-blur-sm md:p-8">
+                <h3 className="text-base font-bold tracking-tight text-ink">
+                  {t.formTitle[lang]}
+                </h3>
+
+                <div className="mt-6 flex flex-col gap-4">
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <label className="flex flex-col gap-2">
+                      <span className="text-[0.62rem] font-bold tracking-[0.14em] text-ink-3 uppercase">
+                        {t.name[lang]} *
+                      </span>
+                      <input
+                        name="name"
+                        type="text"
+                        placeholder={t.namePh[lang]}
+                        value={form.name}
+                        onChange={handleChange}
+                        className={`${inputClass} ${status === "error" && !form.name ? "border-red-500/70" : ""}`}
+                      />
+                    </label>
+                    <label className="flex flex-col gap-2">
+                      <span className="text-[0.62rem] font-bold tracking-[0.14em] text-ink-3 uppercase">
+                        {t.email[lang]} *
+                      </span>
+                      <input
+                        name="email"
+                        type="email"
+                        placeholder={t.emailPh[lang]}
+                        value={form.email}
+                        onChange={handleChange}
+                        className={`${inputClass} ${status === "error" && !form.email ? "border-red-500/70" : ""}`}
+                      />
+                    </label>
+                  </div>
+
+                  <label className="flex flex-col gap-2">
+                    <span className="text-[0.62rem] font-bold tracking-[0.14em] text-ink-3 uppercase">
+                      {t.subject[lang]}
+                    </span>
+                    <input
+                      name="subject"
+                      type="text"
+                      placeholder={t.subjectPh[lang]}
+                      value={form.subject}
+                      onChange={handleChange}
+                      className={inputClass}
+                    />
+                  </label>
+
+                  <label className="flex flex-col gap-2">
+                    <span className="text-[0.62rem] font-bold tracking-[0.14em] text-ink-3 uppercase">
+                      {t.message[lang]} *
+                    </span>
+                    <textarea
+                      name="message"
+                      rows={5}
+                      placeholder={t.messagePh[lang]}
+                      value={form.message}
+                      onChange={handleChange}
+                      className={`${inputClass} min-h-[130px] resize-y ${status === "error" && !form.message ? "border-red-500/70" : ""}`}
+                    />
+                  </label>
+
+                  <div className="flex flex-wrap items-center gap-4">
+                    <motion.button
+                      type="button"
+                      onClick={handleSend}
+                      whileHover={reduce ? undefined : { y: -2 }}
+                      whileTap={reduce ? undefined : { scale: 0.97 }}
+                      className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-[0.78rem] font-semibold transition-colors duration-200 ${
+                        status === "error"
+                          ? "bg-red-500/90 text-white"
+                          : status === "sent"
+                            ? "bg-emerald-500/15 text-emerald-400"
+                            : "bg-invert text-on-invert"
+                      }`}
+                    >
+                      {status === "sent" ? (
+                        <>
+                          <Check size={15} />
+                          {t.sent[lang]}
+                        </>
+                      ) : status === "error" ? (
+                        t.errorRequired[lang]
+                      ) : (
+                        <>
+                          {t.send[lang]}
+                          <Send size={15} />
+                        </>
+                      )}
+                    </motion.button>
+                    <p className="text-[0.68rem] leading-relaxed text-ink-4">{t.formNote[lang]}</p>
+                  </div>
+                </div>
               </div>
-
-              {/* Submit */}
-              <button onClick={handleSend} className="btn-dark" style={{
-                alignSelf: "flex-start",
-                background: status === "error" ? "#ef4444" : status === "sent" ? "var(--tag-bg)" : "var(--accent)",
-                color: status === "sent" ? "var(--text)" : undefined,
-              }}>
-                {status === "sent" ? "✓ Opened in Mail!" : status === "error" ? "Fill required fields!" : "Send Message ↗"}
-              </button>
-
-              <p style={{ fontSize: ".65rem", color: "var(--text3)", letterSpacing: ".04em" }}>
-                * Pesan akan membuka aplikasi email kamu secara otomatis.
-              </p>
             </div>
           </div>
         </div>
-
-        <style>{`
-          .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 5rem;
-            align-items: start;
-          }
-          .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-          }
-          @media (max-width: 1024px) {
-            .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
-          }
-          @media (max-width: 480px) {
-            .form-row { grid-template-columns: 1fr; }
-          }
-        `}</style>
       </section>
 
-      {/* ── Footer ── */}
-      <footer style={{
-        padding: "2rem 5rem",
-        borderTop: "1px solid var(--border)",
-        display: "flex", justifyContent: "space-between",
-        alignItems: "center", flexWrap: "wrap", gap: "1rem",
-        background: "var(--bg)",
-      }}>
-        <div style={{
-          fontFamily: "'Playfair Display',serif",
-          fontSize: "1rem", fontWeight: 700, color: "var(--text)",
-          letterSpacing: "-.01em",
-        }}>Hilal Muhamad</div>
+      {/* Footer */}
+      <footer className="border-t border-hairline px-4 py-8 sm:px-6">
+        <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-4">
+          <div
+            style={{ fontFamily: "'Playfair Display', serif" }}
+            className="text-sm font-bold tracking-tight text-ink"
+          >
+            {PROFILE.fullName}
+          </div>
 
-        <div style={{ fontSize: ".72rem", color: "var(--text3)", letterSpacing: ".04em" }}>
-          © 2026 Hilal Muhamad Abdul Gani · Built with Next.js
+          <div className="text-[0.7rem] text-ink-3">
+            © {new Date().getFullYear()} {PROFILE.name} · {t.builtWith[lang]}
+          </div>
+
+          <div className="flex items-center gap-5">
+            {[
+              { label: "LinkedIn", href: PROFILE.linkedin },
+              { label: "GitHub", href: PROFILE.github },
+              { label: "Email", href: `mailto:${PROFILE.email}` },
+            ].map(({ label, href }) => (
+              <a
+                key={label}
+                href={href}
+                target={href.startsWith("http") ? "_blank" : undefined}
+                rel="noopener noreferrer"
+                className="text-[0.72rem] font-medium text-ink-2 transition-colors duration-200 hover:text-ink"
+              >
+                {label}
+              </a>
+            ))}
+          </div>
         </div>
-
-        <div style={{ display: "flex", gap: "1.5rem" }}>
-          {[
-            { label: "LinkedIn", href: "https://linkedin.com/in/hilal-muhamad" },
-            { label: "GitHub",   href: "https://github.com/hilalmuhamad" },
-            { label: "Email",    href: "mailto:hilalabdulgani@gmail.com" },
-          ].map(({ label, href }) => (
-            <a key={label} href={href}
-              target={href.startsWith("http") ? "_blank" : undefined}
-              rel="noreferrer"
-              style={{
-                fontSize: ".75rem", fontWeight: 500, color: "var(--text2)",
-                textDecoration: "none", transition: "color .2s",
-              }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "var(--text)")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "var(--text2)")}
-            >{label}</a>
-          ))}
-        </div>
-
-        <style>{`
-          @media (max-width: 768px) {
-            footer { padding: 1.5rem 1.5rem !important; flex-direction: column; align-items: flex-start; }
-          }
-          @media (max-width: 480px) {
-            footer div:last-child { display: none; }
-          }
-        `}</style>
       </footer>
     </>
   );
