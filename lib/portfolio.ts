@@ -41,7 +41,7 @@ export type Project = {
 /* Proyek yang ditampilkan sebagai kartu */
 export const PROJECTS: Project[] = [
   {
-    emoji: "📊", label: { id: "Unggulan · Tugas Akhir — ULBI", en: "Featured · Final Project — ULBI" },
+    emoji: "📊", label: { id: "Unggulan · Tugas Akhir — Universitas Logistik dan Bisnis Internasional (Poltekpos)", en: "Featured · Final Project — Universitas Logistik dan Bisnis Internasional (Poltekpos)" },
     title: "Tracer Study Data Warehouse & OLAP Analytics",
     tags: ["Laravel", "PostgreSQL", "Star Schema", "ETL", "OLAP", "React / TailAdmin"],
     desc: {
@@ -203,7 +203,7 @@ export const EXPERIENCES: Experience[] = [
     tags: ["TV Production", "Scheduling", "Cross-team Coordination"],
   },
   {
-    company: "HIMATIF ULBI", date: "Mar 2025 – Present",
+    company: "HIMATIF Universitas Logistik dan Bisnis Internasional (Poltekpos)", date: "Mar 2025 – Present",
     role: "Staff Public Relations (Organizational)", kind: "organizational",
     bullets: [
       "Initiated “Safari Himpunan” comparative study dengan asosiasi eksternal; liaison sponsor korporat & partnership negotiation.",
@@ -212,7 +212,7 @@ export const EXPERIENCES: Experience[] = [
     tags: ["Public Relations", "Partnership", "Leadership"],
   },
   {
-    company: "K-Radio ULBI", date: "Mar 2025 – Present",
+    company: "K-Radio Universitas Logistik dan Bisnis Internasional (Poltekpos)", date: "Mar 2025 – Present",
     role: "Head of Media Design Division (Organizational)", kind: "organizational",
     bullets: [
       "Led creative team — consistent visual identity across social platforms; increased engagement via compelling graphics.",
@@ -223,7 +223,7 @@ export const EXPERIENCES: Experience[] = [
 
 /* Sorotan "Proyek & Pengabdian": 1 flagship + 1 pengabdian masyarakat */
 export const SERVICE_HIGHLIGHTS = [
-  { title: "Tracer Study — Final Project (ULBI)" },
+  { title: "Tracer Study — Final Project - Universitas Logistik dan Bisnis Internasional (Poltekpos)" },
   { title: "PKM — Laravel Bootcamp @ SMKN 2 Cimahi" },
 ];
 

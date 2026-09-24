@@ -60,8 +60,8 @@ export const STR = {
       en: "Available for full-time roles",
     } as Record<Lang, string>,
     bio: {
-      id: "Lulusan D3 Teknik Informatika ULBI yang berpengalaman merancang solusi full-stack, mobile, dan infrastruktur jaringan skala produksi. Berbekal penguasaan Laravel, React, FastAPI, dan Flutter, saya adalah pembelajar adaptif yang siap membangun aplikasi scalable dan berdampak nyata di industri yang dinamis.",
-      en: "A D3 Informatics Engineering graduate from ULBI experienced in designing production-scale full-stack, mobile, and network infrastructure solutions. Armed with Laravel, React, FastAPI, and Flutter, I am an adaptive learner ready to build scalable applications with real impact in dynamic industries.",
+      id: "Lulusan D3 Teknik Informatika Universitas Logistik dan Bisnis Internasional (Poltekpos) yang berpengalaman merancang solusi full-stack, mobile, dan infrastruktur jaringan skala produksi. Berbekal penguasaan Laravel, React, FastAPI, dan Flutter, saya adalah pembelajar adaptif yang siap membangun aplikasi scalable dan berdampak nyata di industri yang dinamis.",
+      en: "A D3 Informatics Engineering graduate from Universitas Logistik dan Bisnis Internasional (Poltekpos) experienced in designing production-scale full-stack, mobile, and network infrastructure solutions. Armed with Laravel, React, FastAPI, and Flutter, I am an adaptive learner ready to build scalable applications with real impact in dynamic industries.",
     } as Record<Lang, string>,
     tagline: {
       id: "A web developer who blends strategy with empathy.",
@@ -201,7 +201,7 @@ export const STR = {
     finalProject: { id: "Tugas akhir", en: "Final project" } as Record<Lang, string>,
     community: { id: "Pengabdian masyarakat", en: "Community service" } as Record<Lang, string>,
     certsTitle: { id: "Sertifikasi resmi", en: "Official certifications" } as Record<Lang, string>,
-    uniName: "Universitas Logistik dan Bisnis Internasional (ULBI)",
+    uniName: "Universitas Logistik dan Bisnis Internasional (Poltekpos)",
     uniDegree: { id: "Diploma (D3) Teknik Informatika", en: "Diploma (D3) in Informatics Engineering" } as Record<Lang, string>,
     uniLocation: { id: "Bandung, Indonesia", en: "Bandung, Indonesia" } as Record<Lang, string>,
     uniPeriod: "2023 – 2026",
@@ -227,6 +227,7 @@ export const STR = {
       },
       {
         issuer: "SAP", title: "Introduction to the ABAP Workbench", date: "Jul 2025", logo: "/sap-logo.webp",
+        file: "/sertifikat-sap.jpeg", fileKind: "image",
         desc: {
           id: "Dasar ABAP Workbench untuk pengembangan ERP perusahaan.",
           en: "Foundational ABAP Workbench for enterprise ERP development.",
@@ -257,7 +258,31 @@ export const STR = {
           en: "Cybersecurity foundations (~9 hours): security concepts, tools, and system protection practices.",
         },
       },
-    ] as { issuer: string; title: string; date: string; logo?: string; file?: string; fileKind?: "image" | "pdf"; verifyUrl?: string; score?: string; desc: Record<Lang, string> }[],
+      {
+        issuer: "SMK Pasundan 3 Bandung", title: "Best Visual Effect",
+        file: "/sertifikat-best-visual-effect.jpeg", fileKind: "image",
+        desc: {
+          id: "Penghargaan Best Visual Effect dari SMK Pasundan 3 Bandung.",
+          en: "Best Visual Effect award from SMK Pasundan 3 Bandung.",
+        },
+      },
+      {
+        issuer: "LKMM 2 HIMATIF", title: "Pemateri LKMM 2",
+        file: "/sertifikat-pematerian.jpeg", fileKind: "image",
+        desc: {
+          id: "Sertifikat pemateri pada Latihan Kepemimpinan Manajemen Mahasiswa (LKMM) 2 HIMATIF.",
+          en: "Speaker certificate at the HIMATIF Student Management Leadership Training (LKMM) 2.",
+        },
+      },
+      {
+        issuer: "HIMATIF Universitas Logistik dan Bisnis Internasional (Poltekpos)", title: "Sertifikat HIMATIF",
+        file: "/sertifikat-tambahan.jpeg", fileKind: "image",
+        desc: {
+          id: "Sertifikat organisasi kemahasiswaan Teknik Informatika.",
+          en: "Informatics student association organizational certificate.",
+        },
+      },
+    ] as { issuer: string; title: string; date?: string; logo?: string; file?: string; fileKind?: "image" | "pdf"; verifyUrl?: string; score?: string; desc: Record<Lang, string> }[],
     galleryTitle: { id: "Berkas Sertifikat", en: "Certificate Files" } as Record<Lang, string>,
     galleryLead: {
       id: "Geser menyamping untuk melihat berkas asli tiap sertifikat, atau buka untuk tampilan penuh.",
@@ -268,6 +293,8 @@ export const STR = {
     score: { id: "Nilai", en: "Score" } as Record<Lang, string>,
     slidePrev: { id: "Geser sebelumnya", en: "Previous slide" } as Record<Lang, string>,
     slideNext: { id: "Geser berikutnya", en: "Next slide" } as Record<Lang, string>,
+    autoplay: { id: "Putar otomatis", en: "Autoplay" } as Record<Lang, string>,
+    pauseAuto: { id: "Jeda putar otomatis", en: "Pause autoplay" } as Record<Lang, string>,
   },
   contact: {
     eyebrow: { id: "Kontak", en: "Contact" } as Record<Lang, string>,

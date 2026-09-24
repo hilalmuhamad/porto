@@ -158,9 +158,10 @@ export default function Navbar() {
             download="CV_Hilal_Muhamad.pdf"
             aria-label={STR.nav.downloadCv[lang]}
             title={STR.nav.downloadCv[lang]}
-            className="hidden h-8 w-8 items-center justify-center rounded-full bg-chip text-ink-2 transition-colors duration-200 hover:text-ink md:inline-flex"
+            className="hidden items-center gap-1.5 rounded-full bg-chip px-3.5 py-2 text-[0.75rem] font-bold text-ink transition-colors duration-200 hover:bg-elevated-hover md:inline-flex"
           >
-            <Download size={14} />
+            <Download size={13} />
+            {lang === "id" ? "Unduh CV" : "Download CV"}
           </a>
 
           <button
