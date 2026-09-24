@@ -35,7 +35,6 @@ export const STR = {
     links: {
       id: [
         { label: "Tentang", href: "#about" },
-        { label: "Tentang", href: "#about" },
         { label: "Proyek", href: "#projects" },
         { label: "Pengalaman", href: "#experience" },
         { label: "Edukasi", href: "#education" },
@@ -235,6 +234,7 @@ export const STR = {
       },
       {
         issuer: "Dicoding", title: "Back-End Development with JavaScript", date: "Sep 2024", logo: "/dicoding-logo.png",
+        file: "/sertifikat-javascript.jpg", fileKind: "image",
         desc: {
           id: "Arsitektur RESTful API, manajemen server, dan praktik terbaik back-end dengan Node.js.",
           en: "RESTful API architecture, server management, and back-end best practices with Node.js.",
@@ -242,12 +242,32 @@ export const STR = {
       },
       {
         issuer: "Dicoding", title: "Cloud Practitioner Essentials", date: "Jun 2024", logo: "/dicoding-logo.png",
+        file: "/sertifikat-aws.jpg", fileKind: "image",
         desc: {
           id: "Konsep dasar cloud computing, layanan cloud utama, serta praktik keamanan dan deployment.",
           en: "Core cloud computing concepts, essential cloud services, plus deployment and security best practices.",
         },
       },
-    ] as { issuer: string; title: string; date: string; logo: string; desc: Record<Lang, string> }[],
+      {
+        issuer: "Google · Coursera", title: "Foundations of Cybersecurity", date: "Apr 2026",
+        file: "/coursera-cybersecurity.pdf", fileKind: "pdf",
+        verifyUrl: "https://coursera.org/verify/7FPGV1DU7UJ8", score: "94.98%",
+        desc: {
+          id: "Fondasi keamanan siber (~9 jam): konsep keamanan, alat, dan praktik proteksi sistem.",
+          en: "Cybersecurity foundations (~9 hours): security concepts, tools, and system protection practices.",
+        },
+      },
+    ] as { issuer: string; title: string; date: string; logo?: string; file?: string; fileKind?: "image" | "pdf"; verifyUrl?: string; score?: string; desc: Record<Lang, string> }[],
+    galleryTitle: { id: "Berkas Sertifikat", en: "Certificate Files" } as Record<Lang, string>,
+    galleryLead: {
+      id: "Geser menyamping untuk melihat berkas asli tiap sertifikat, atau buka untuk tampilan penuh.",
+      en: "Scroll sideways to view each original certificate file, or open it for full view.",
+    } as Record<Lang, string>,
+    viewFile: { id: "Lihat Berkas", en: "View File" } as Record<Lang, string>,
+    verify: { id: "Verifikasi", en: "Verify" } as Record<Lang, string>,
+    score: { id: "Nilai", en: "Score" } as Record<Lang, string>,
+    slidePrev: { id: "Geser sebelumnya", en: "Previous slide" } as Record<Lang, string>,
+    slideNext: { id: "Geser berikutnya", en: "Next slide" } as Record<Lang, string>,
   },
   contact: {
     eyebrow: { id: "Kontak", en: "Contact" } as Record<Lang, string>,

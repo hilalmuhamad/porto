@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { Menu, X, Sun, Moon, ArrowUpRight } from "lucide-react";
+import { Menu, X, Sun, Moon, ArrowUpRight, Download } from "lucide-react";
 import { useTheme } from "@/lib/ThemeProvider";
 import { useLanguage, STR, type Lang } from "@/lib/LanguageProvider";
 import { PROFILE } from "@/lib/portfolio";
@@ -151,6 +151,16 @@ export default function Navbar() {
           >
             {STR.nav.contact[lang]}
             <ArrowUpRight size={13} />
+          </a>
+
+          <a
+            href={PROFILE.cvUrl}
+            download="CV_Hilal_Muhamad.pdf"
+            aria-label={STR.nav.downloadCv[lang]}
+            title={STR.nav.downloadCv[lang]}
+            className="hidden h-8 w-8 items-center justify-center rounded-full bg-chip text-ink-2 transition-colors duration-200 hover:text-ink md:inline-flex"
+          >
+            <Download size={14} />
           </a>
 
           <button
