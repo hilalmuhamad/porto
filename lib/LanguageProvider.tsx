@@ -35,14 +35,16 @@ export const STR = {
     links: {
       id: [
         { label: "Tentang", href: "#about" },
-        { label: "Proyek", href: "#projects" },
         { label: "Pengalaman", href: "#experience" },
+        { label: "Proyek", href: "#projects" },
+        { label: "Desain", href: "#design" },
         { label: "Edukasi", href: "#education" },
       ],
       en: [
         { label: "About", href: "#about" },
-        { label: "Projects", href: "#projects" },
         { label: "Experience", href: "#experience" },
+        { label: "Projects", href: "#projects" },
+        { label: "Design", href: "#design" },
         { label: "Education", href: "#education" },
       ],
     } as Record<Lang, { label: string; href: string }[]>,
@@ -324,6 +326,16 @@ export const STR = {
     } as Record<Lang, string>,
     footerRights: { id: "Seluruh hak cipta.", en: "All rights reserved." } as Record<Lang, string>,
     builtWith: { id: "Dibangun dengan Next.js", en: "Built with Next.js" } as Record<Lang, string>,
+  },
+  design: {
+    eyebrow: { id: "Portofolio Desain", en: "Design Portfolio" } as Record<Lang, string>,
+    titleA: { id: "Visual yang", en: "Visuals that" } as Record<Lang, string>,
+    titleB: { id: "bercerita.", en: "tell stories." } as Record<Lang, string>,
+    lead: {
+      id: "Karya desain dari peran saya sebagai Head of Media Design K-Radio ULBI — poster acara, konten media sosial, dan materi promosi kampus. Klik untuk melihat penuh.",
+      en: "Design works from my role as Head of Media Design at K-Radio ULBI — event posters, social media content, and campus promotional materials. Click to view full.",
+    } as Record<Lang, string>,
+    viewFull: { id: "Lihat penuh", en: "View full" } as Record<Lang, string>,
   },
   tech: {
     eyebrow: { id: "Keahlian Teknis", en: "Technical Skills" } as Record<Lang, string>,

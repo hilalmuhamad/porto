@@ -21,7 +21,7 @@ const ROLES = [
   "Fullstack Developer",
 ];
 
-const CV_FILENAME = "CV_Hilal_Muhamad.pdf";
+const CV_FILENAME = "CV_Hilal Muhamad Abdul Gani.pdf";
 
 /* LinkedIn tidak tersedia sebagai ikon brand di lucide-react
    (sudah diverifikasi: export-nya undefined) — gunakan SVG inline

@@ -155,7 +155,7 @@ export default function Navbar() {
 
           <a
             href={PROFILE.cvUrl}
-            download="CV_Hilal_Muhamad.pdf"
+            download="CV_Hilal Muhamad Abdul Gani.pdf"
             aria-label={STR.nav.downloadCv[lang]}
             title={STR.nav.downloadCv[lang]}
             className="hidden items-center gap-1.5 rounded-full bg-chip px-3.5 py-2 text-[0.75rem] font-bold text-ink transition-colors duration-200 hover:bg-elevated-hover md:inline-flex"
@@ -248,7 +248,7 @@ export default function Navbar() {
                 </a>
                 <a
                   href={PROFILE.cvUrl}
-                  download="CV_Hilal_Muhamad.pdf"
+                  download="CV_Hilal Muhamad Abdul Gani.pdf"
                   onClick={close}
                   className="rounded-2xl bg-chip px-4 py-3 text-center text-[0.8rem] font-semibold text-ink transition-colors duration-200 hover:bg-elevated-hover"
                 >

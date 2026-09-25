@@ -32,24 +32,49 @@ export default function About() {
 
         {/* Dua kolom: narasi kiri, foto kanan (stack: foto di atas) */}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-5 md:gap-8">
-          {/* Foto — muncul pertama di mobile */}
+          {/* Foto — bingkai abstrak, muncul pertama di mobile */}
           <motion.figure
             initial={reduce ? false : { opacity: 0, y: 28, scale: 0.96 }}
             whileInView={reduce ? undefined : { opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
-            whileHover={reduce ? undefined : { y: -6 }}
-            className="group relative order-1 overflow-hidden rounded-3xl bg-card shadow-card transition-shadow duration-300 hover:shadow-lift md:order-2 md:col-span-2"
+            className="group relative order-1 mx-auto w-full max-w-[340px] md:order-2 md:col-span-2 md:max-w-none"
           >
-            <div className="relative aspect-[4/5] w-full">
-              <Image
-                src="/pasphotohilal.jpeg"
-                alt="Hilal Muhamad Abdul Gani"
-                fill
-                style={{ objectFit: "cover", objectPosition: "top center" }}
-                sizes="(max-width: 768px) 100vw, 380px"
-                className="transition-transform duration-700 group-hover:scale-[1.05]"
+            {/* Lapisan abstrak di belakang: blob organik + riak + titik */}
+            <div aria-hidden className="absolute -inset-4 sm:-inset-6">
+              <div
+                className="absolute inset-0 bg-gradient-to-br from-emerald-500/25 via-emerald-500/5 to-zinc-500/15 blur-2xl transition-transform duration-700 group-hover:scale-105"
+                style={{ borderRadius: "42% 58% 63% 37% / 45% 42% 58% 55%" }}
               />
+              <div className="absolute -top-2 right-2 h-32 w-32 rounded-full border border-white/10" />
+              <div className="absolute -top-2 right-2 h-44 w-44 translate-x-3 -translate-y-3 rounded-full border border-white/5" />
+              <div
+                className="absolute -bottom-4 -left-2 h-28 w-36 opacity-60"
+                style={{
+                  backgroundImage: "radial-gradient(rgba(255,255,255,0.22) 1.2px, transparent 1.2px)",
+                  backgroundSize: "12px 12px",
+                }}
+              />
+            </div>
+            {/* Foto diagonal abstrak + bingkai offset */}
+            <div className="relative">
+              <div
+                aria-hidden
+                className="absolute inset-0 translate-x-3 translate-y-3 rounded-tl-[1.25rem] rounded-tr-[4rem] rounded-br-[1.25rem] rounded-bl-[4rem] bg-gradient-to-br from-emerald-500/40 to-zinc-500/20 transition-transform duration-500 group-hover:translate-x-4 group-hover:translate-y-4"
+              />
+              <div className="relative overflow-hidden rounded-tl-[4rem] rounded-tr-[1.25rem] rounded-br-[4rem] rounded-bl-[1.25rem] shadow-lift ring-1 ring-white/10 transition-transform duration-500 group-hover:-translate-y-1.5">
+                <div className="relative aspect-[4/5] w-full">
+                  <Image
+                    src="/pasphotohilal.jpeg"
+                    alt="Hilal Muhamad Abdul Gani"
+                    fill
+                    style={{ objectFit: "cover", objectPosition: "top center" }}
+                    sizes="(max-width: 768px) 100vw, 380px"
+                    className="transition-transform duration-700 group-hover:scale-[1.05]"
+                  />
+                  <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
+                </div>
+              </div>
             </div>
           </motion.figure>
 

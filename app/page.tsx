@@ -4,6 +4,7 @@ import Stats       from "@/components/sections/stats";
 import About       from "@/components/sections/about";
 import TechSkills  from "@/components/sections/techskills";
 import Projects    from "@/components/sections/projects";
+import Design      from "@/components/sections/design";
 import Experience  from "@/components/sections/experience";
 import Education   from "@/components/sections/education";
 import Contact     from "@/components/sections/contact";
@@ -16,9 +17,11 @@ export default function Home() {
       <Stats />
       <About />
       <div className="divider" />
+      <Experience />
+      <div className="divider" />
       <Projects />
       <div className="divider" />
-      <Experience />
+      <Design />
       <div className="divider" />
       <Education />
       <div className="divider" />
