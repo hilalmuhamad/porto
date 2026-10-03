@@ -2,40 +2,42 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
-const NAME = "Hilal Muhamad";
+/* ── SplashScreen: "Minimalist Code Typing" ──
+   Mengetik `<Hilal Muhamad />` lalu jeda singkat, lalu seluruh layar
+   memudar ke atas dan halaman utama muncul.
+   - Sekali per sesi (sessionStorage) → tidak mengganggu navigasi/SEO.
+   - Dilewati otomatis untuk prefers-reduced-motion.
+   - Overlay murni klien; konten halaman tetap ter-render (SSR) di belakangnya. */
+const CODE = "<Hilal Muhamad />";
 
-/* Splash screen modern:
-   - logo & nama muncul berurutan (huruf demi huruf)
-   - penghitung persen + garis progres
-   - memudar naik saat selesai, sekali per sesi
-   - dilewati otomatis untuk prefers-reduced-motion */
 export default function Splash() {
   const reduce = useReducedMotion();
   const [show, setShow] = useState(true);
-  const [pct, setPct] = useState(0);
+  const [typed, setTyped] = useState("");
+  const [done, setDone] = useState(false);
 
   useEffect(() => {
     if (reduce) { setShow(false); return; }
     if (sessionStorage.getItem("splashShown") === "1") { setShow(false); return; }
 
     document.body.style.overflow = "hidden";
-    const start = performance.now();
-    const DURATION = 1750;
-    let raf = 0;
+    const TYPE_MS = 55;
+    let i = 0;
+    const typer = setInterval(() => {
+      i += 1;
+      setTyped(CODE.slice(0, i));
+      if (i >= CODE.length) {
+        clearInterval(typer);
+        setDone(true);
+        /* jeda sejenak setelah selesai mengetik, lalu tutup */
+        setTimeout(() => {
+          sessionStorage.setItem("splashShown", "1");
+          setShow(false);
+        }, 900);
+      }
+    }, TYPE_MS);
 
-    const tick = (now: number) => {
-      const p = Math.min(1, (now - start) / DURATION);
-      setPct(Math.round(p * 100));
-      if (p < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-
-    const t = setTimeout(() => {
-      sessionStorage.setItem("splashShown", "1");
-      setShow(false);
-    }, DURATION + 120);
-
-    return () => { cancelAnimationFrame(raf); clearTimeout(t); };
+    return () => clearInterval(typer);
   }, [reduce]);
 
   useEffect(() => {
@@ -47,17 +49,17 @@ export default function Splash() {
       {show && (
         <motion.div
           key="splash"
-          initial={{ opacity: 1 }}
-          exit={{ opacity: 0, y: -24, filter: "blur(8px)" }}
-          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -48, filter: "blur(10px)" }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="fixed inset-0 z-[300] flex flex-col items-center justify-center overflow-hidden bg-panel"
         >
-          {/* aurora latar */}
+          {/* aurora redup */}
           <motion.div
             aria-hidden
-            className="absolute h-[460px] w-[460px] rounded-full bg-[var(--orb-accent)] blur-[120px]"
-            animate={{ scale: [0.9, 1.08, 0.95], opacity: [0.5, 0.85, 0.5] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute h-[420px] w-[420px] rounded-full bg-[var(--orb-accent)] blur-[120px]"
+            animate={{ scale: [0.92, 1.06, 0.95], opacity: [0.5, 0.85, 0.5] }}
+            transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
           />
           <div
             aria-hidden
@@ -71,58 +73,41 @@ export default function Splash() {
             }}
           />
 
-          {/* logo */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.75, y: 14, rotate: -6 }}
-            animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
-            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-            className="relative flex h-16 w-16 items-center justify-center rounded-2xl bg-elevated text-2xl font-extrabold text-ink shadow-[0_0_50px_-12px_rgba(52,211,153,0.45)]"
-            style={{ fontFamily: "'Playfair Display', serif" }}
-          >
-            H
-            <motion.span
-              aria-hidden
-              className="absolute inset-0 rounded-2xl border border-emerald-500/30"
-              animate={{ scale: [1, 1.35], opacity: [0.55, 0] }}
-              transition={{ duration: 1.6, repeat: Infinity, ease: "easeOut" }}
-            />
-          </motion.div>
-
-          {/* nama — huruf demi huruf */}
-          <div className="relative mt-6 flex overflow-hidden">
-            {NAME.split("").map((ch, i) => (
+          {/* jendela kode mini */}
+          <div className="relative flex items-center gap-3 rounded-2xl border border-hairline bg-card px-5 py-4 shadow-card backdrop-blur-sm">
+            <span aria-hidden className="flex gap-1.5">
+              <span className="h-2.5 w-2.5 rounded-full bg-red-400/80" />
+              <span className="h-2.5 w-2.5 rounded-full bg-amber-400/80" />
+              <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/80" />
+            </span>
+            <span aria-hidden className="h-5 w-px bg-line" />
+            <code
+              className="text-sm font-semibold tracking-tight text-ink sm:text-base"
+              style={{ fontFamily: "'Playfair Display', serif" }}
+            >
+              {typed.split("").map((ch, i) => (
+                <span key={i} className={/[<>/]/.test(ch) ? "text-emerald-400" : "text-ink"}>
+                  {ch}
+                </span>
+              ))}
+              {/* kursor berkedip */}
               <motion.span
-                key={`${ch}-${i}`}
-                initial={{ opacity: 0, y: "70%" }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.45,
-                  delay: 0.22 + i * 0.035,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                className="text-sm font-semibold tracking-[0.22em] text-ink-2 uppercase"
-              >
-                {ch === " " ? "\u00A0" : ch}
-              </motion.span>
-            ))}
+                aria-hidden
+                className="ml-0.5 inline-block h-4 w-[2px] translate-y-[2px] bg-emerald-400"
+                animate={{ opacity: done ? [1, 0, 1] : 1 }}
+                transition={{ duration: 0.9, repeat: Infinity, ease: "easeInOut" }}
+              />
+            </code>
           </div>
 
-          {/* garis progres + persen */}
-          <div className="relative mt-7 flex w-56 flex-col items-center gap-3">
-            <div className="h-px w-full overflow-hidden bg-line">
-              <motion.div
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ duration: 1.75, ease: "easeInOut" }}
-                style={{ originX: 0 }}
-                className="h-full w-full bg-gradient-to-r from-emerald-500/40 via-emerald-400 to-emerald-500/40"
-              />
-            </div>
-            <div className="flex w-full items-center justify-between text-[0.62rem] font-bold tracking-[0.18em] text-ink-4 uppercase">
-              <span>Portfolio</span>
-              <span className="tabular-nums text-ink-2">{pct}%</span>
-            </div>
-          </div>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: done ? 1 : 0.35 }}
+            transition={{ duration: 0.4 }}
+            className="relative mt-5 text-[0.62rem] font-bold tracking-[0.24em] text-ink-4 uppercase"
+          >
+            Portfolio
+          </motion.p>
         </motion.div>
       )}
     </AnimatePresence>
