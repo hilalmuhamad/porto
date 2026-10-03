@@ -65,7 +65,7 @@ export default function About() {
               <div className="relative overflow-hidden rounded-tl-[4rem] rounded-tr-[1.25rem] rounded-br-[4rem] rounded-bl-[1.25rem] shadow-lift ring-1 ring-white/10 transition-transform duration-500 group-hover:-translate-y-1.5">
                 <div className="relative aspect-[4/5] w-full">
                   <Image
-                    src="/pasphotohilal.jpeg"
+                    src="/pas%20photo%20merah.png"
                     alt="Hilal Muhamad Abdul Gani"
                     fill
                     style={{ objectFit: "cover", objectPosition: "top center" }}
