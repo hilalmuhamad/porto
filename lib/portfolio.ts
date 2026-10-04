@@ -125,6 +125,29 @@ export const PROJECTS: Project[] = [
     imageFit: "contain",
   },
   {
+    emoji: "🕌", label: { id: "Mobile · Flutter — Magang", en: "Mobile · Flutter — Internship" },
+    title: "Hamim – Quran Memorization App",
+    tags: ["Flutter", "BLoC", "Clean Architecture", "OAuth", "Sqflite"],
+    desc: {
+      id: "Aplikasi hafalan Quran produksi dari magang di Maqdis Academy: slicing UI Figma layar Hafalan, background audio playback yang tetap berjalan saat app diminimalkan, multi-layer auth (Google OAuth, deep linking, session persistence), dan caching lokal agar tangguh saat offline.",
+      en: "Production Quran memorization app from my internship at Maqdis Academy: Figma-to-Flutter Hafalan screen slicing, background audio playback that keeps running when minimized, multi-layer auth (Google OAuth, deep linking, session persistence), and local caching for offline resilience.",
+    },
+    link: "https://github.com/hilalmuhamad/hamim-master.git",
+    role: "Mobile Developer Intern", date: "Jun – Sep 2026",
+    problem: {
+      id: "State management setState ad-hoc menyebabkan widget rebuild berlebih dan transisi kaku di aplikasi produksi.",
+      en: "Ad-hoc setState management caused excessive widget rebuilds and stiff transitions in the production app.",
+    },
+    solution: {
+      id: "Refactor ke BLoC + Clean Architecture, komponen modular yang responsif, API interceptor, serta caching Sqflite/SharedPreferences.",
+      en: "Refactored to BLoC + Clean Architecture, modular responsive components, API interceptors, and Sqflite/SharedPreferences caching.",
+    },
+    result: {
+      id: "Transisi lebih mulus, stabilitas produksi meningkat, dan aplikasi tetap fungsional saat offline atau jaringan buruk.",
+      en: "Smoother transitions, improved production stability, and an app that stays functional offline or on poor networks.",
+    },
+  },
+  {
     emoji: "🏥", label: { id: "Full-Stack — Health Tech", en: "Full-Stack — Health Tech" },
     title: "MediTech – Integrated Digital Health Management",
     tags: ["Node.js", "Express.js", "MongoDB", "React.js", "Flutter", "JWT / RBAC"],

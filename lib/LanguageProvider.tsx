@@ -175,8 +175,8 @@ export const STR = {
     titleB: { id: "masalah nyata,", en: "a real problem," } as Record<Lang, string>,
     titleC: { id: "bukan sekadar daftar fitur.", en: "not just a feature list." } as Record<Lang, string>,
     lead: {
-      id: "Empat proyek berikut mewakili cara saya bekerja: memahami masalahnya lebih dulu, memilih arsitektur yang tepat, lalu membuktikan hasilnya lewat angka. Setiap kartu memuat konteks masalah, solusi teknis, dan hasil terukur agar mudah dinilai.",
-      en: "The four projects below reflect how I work: understand the problem first, choose the right architecture, then prove the outcome with numbers. Each card carries the problem, the technical solution, and a measurable result so it is easy to assess.",
+      id: "Lima proyek berikut mewakili cara saya bekerja: memahami masalahnya lebih dulu, memilih arsitektur yang tepat, lalu membuktikan hasilnya lewat angka. Setiap kartu memuat konteks masalah, solusi teknis, dan hasil terukur agar mudah dinilai.",
+      en: "The five projects below reflect how I work: understand the problem first, choose the right architecture, then prove the outcome with numbers. Each card carries the problem, the technical solution, and a measurable result so it is easy to assess.",
     } as Record<Lang, string>,
     problem: { id: "Masalah", en: "Problem" } as Record<Lang, string>,
     solution: { id: "Solusi", en: "Solution" } as Record<Lang, string>,

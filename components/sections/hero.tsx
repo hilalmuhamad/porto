@@ -9,6 +9,7 @@ import {
   useMotionTemplate,
   useReducedMotion,
   useTransform,
+  useScroll,
 } from "framer-motion";
 import { Mail, ArrowRight, Download, Globe } from "lucide-react";
 import { useLanguage, STR } from "@/lib/LanguageProvider";
@@ -65,10 +66,10 @@ const container = {
 };
 
 const item = {
-  hidden: { opacity: 0, y: 26 },
+  hidden: { opacity: 0, y: 26, filter: "blur(8px)" },
   show: {
-    opacity: 1, y: 0,
-    transition: { duration: 0.65, ease: "easeOut" as const },
+    opacity: 1, y: 0, filter: "blur(0px)",
+    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const },
   },
 };
 
@@ -90,6 +91,15 @@ export default function Hero() {
   /* Parallax orb kiri-atas: bergeser melawan arah kursor */
   const orbX = useTransform(sx, (v) => (v - 700) * -0.04);
   const orbY = useTransform(sy, (v) => (v - 400) * -0.04);
+
+  /* Parallax saat scroll: konten naik & memudar lembut, latar tertinggal */
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, 110]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  const bgY = useTransform(scrollYProgress, [0, 1], [0, -70]);
 
   /* Role berganti otomatis satu per satu */
   const [roleIdx, setRoleIdx] = useState(0);
@@ -119,7 +129,11 @@ export default function Hero() {
       className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 pt-24 pb-12 sm:px-10 md:pt-28 lg:px-16"
     >
       {/* ── Latar: grid statis + glow kursor + aurora orbs ── */}
-      <div aria-hidden className="pointer-events-none absolute inset-0">
+      <motion.div
+        aria-hidden
+        style={reduce ? undefined : { y: bgY }}
+        className="pointer-events-none absolute inset-0"
+      >
         <div
           className="absolute inset-0 opacity-[0.5]"
           style={{
@@ -150,13 +164,14 @@ export default function Hero() {
             />
           </>
         )}
-      </div>
+      </motion.div>
 
       {/* Konten langsung di atas background — tanpa kartu */}
       <motion.div
         variants={reduce ? undefined : container}
         initial={reduce ? false : "hidden"}
         animate="show"
+        style={reduce ? undefined : { y: contentY, opacity: contentOpacity }}
         className="relative w-full max-w-6xl"
       >
         <div className="relative">
@@ -233,10 +248,10 @@ export default function Hero() {
             <Magnetic>
               <a
                 href="#projects"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-invert px-6 py-3 text-sm font-semibold text-on-invert transition-[background-color,translate] duration-200 hover:-translate-y-0.5 hover:bg-invert-hover"
+                className="group inline-flex items-center justify-center gap-2 rounded-full bg-invert px-6 py-3 text-sm font-semibold text-on-invert transition-[background-color,translate] duration-200 hover:-translate-y-0.5 hover:bg-invert-hover"
               >
                 {t.viewProjects[lang]}
-                <ArrowRight size={16} />
+                <ArrowRight size={16} className="transition-transform duration-200 group-hover:translate-x-1" />
               </a>
             </Magnetic>
             <Magnetic>
