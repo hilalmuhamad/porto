@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" font-family="Manrope, Arial, sans-serif">
+  <defs>
+    <linearGradient id="mbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b0e0d"/>
+      <stop offset="1" stop-color="#121614"/>
+    </linearGradient>
+    <radialGradient id="mglow" cx="0.22" cy="0.32" r="0.6">
+      <stop offset="0" stop-color="#34d399" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#34d399" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="750" fill="url(#mbg)"/>
+  <g stroke="#ffffff" stroke-opacity="0.045">
+    <path d="M0 125h1200M0 250h1200M0 375h1200M0 500h1200M0 625h1200M200 0v750M400 0v750M600 0v750M800 0v750M1000 0v750"/>
+  </g>
+  <rect width="1200" height="750" fill="url(#mglow)"/>
+
+  <!-- node motif: LB → services → DB -->
+  <g>
+    <rect x="830" y="150" width="250" height="120" rx="20" fill="#1c1917" stroke="#78716c"/>
+    <text x="955" y="200" fill="#f4f4f5" font-size="24" font-weight="bold" text-anchor="middle">Nginx LB</text>
+    <text x="955" y="232" fill="#71717a" font-size="17" text-anchor="middle">load balancer</text>
+    <rect x="830" y="300" width="118" height="110" rx="20" fill="#12211c" stroke="#34d399" stroke-opacity="0.5"/>
+    <text x="889" y="348" fill="#f4f4f5" font-size="20" font-weight="bold" text-anchor="middle">Go #1</text>
+    <text x="889" y="372" fill="#6ee7b7" font-size="14" text-anchor="middle">Fiber</text>
+    <rect x="962" y="300" width="118" height="110" rx="20" fill="#12211c" stroke="#34d399" stroke-opacity="0.5"/>
+    <text x="1021" y="348" fill="#f4f4f5" font-size="20" font-weight="bold" text-anchor="middle">Go #2</text>
+    <text x="1021" y="372" fill="#6ee7b7" font-size="14" text-anchor="middle">Fiber</text>
+    <rect x="830" y="440" width="250" height="90" rx="20" fill="#172554" stroke="#60a5fa" stroke-opacity="0.5"/>
+    <text x="955" y="478" fill="#f4f4f5" font-size="20" font-weight="bold" text-anchor="middle">PostgreSQL</text>
+    <text x="955" y="502" fill="#93c5fd" font-size="14" text-anchor="middle">Master-Slave</text>
+    <g stroke="#34d399" stroke-width="2">
+      <line x1="955" y1="270" x2="955" y2="296"/>
+      <line x1="920" y1="410" x2="890" y2="436"/>
+      <line x1="990" y1="410" x2="1020" y2="436"/>
+    </g>
+  </g>
+
+  <text x="90" y="250" fill="#f4f4f5" font-size="92" font-weight="800" letter-spacing="6">MAGGOT</text>
+  <text x="94" y="310" fill="#a1a1aa" font-size="30">Distributed Backend · Golang</text>
+  <rect x="90" y="350" width="120" height="6" rx="3" fill="#34d399"/>
+
+  <g font-size="24" font-weight="bold">
+    <rect x="90" y="405" width="250" height="58" rx="29" fill="#12211c" stroke="#34d399" stroke-opacity="0.45"/>
+    <text x="215" y="442" fill="#6ee7b7" text-anchor="middle">Nginx LB</text>
+    <rect x="360" y="405" width="300" height="58" rx="29" fill="#12211c" stroke="#34d399" stroke-opacity="0.45"/>
+    <text x="510" y="442" fill="#6ee7b7" text-anchor="middle">Master-Slave</text>
+    <rect x="90" y="479" width="210" height="58" rx="29" fill="#18181b" stroke="#3f3f46"/>
+    <text x="195" y="516" fill="#a1a1aa" text-anchor="middle">Podman</text>
+    <rect x="320" y="479" width="230" height="58" rx="29" fill="#18181b" stroke="#3f3f46"/>
+    <text x="435" y="516" fill="#a1a1aa" text-anchor="middle">0% error</text>
+  </g>
+
+  <text x="90" y="625" fill="#52525b" font-size="22">Backend / Infra Engineer · Jan 2026</text>
+</svg>

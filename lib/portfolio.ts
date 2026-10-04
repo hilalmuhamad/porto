@@ -84,6 +84,8 @@ export const PROJECTS: Project[] = [
     link: "https://github.com/bpmthm/maggot-cycle",
     role: "Backend / Infra Engineer", date: "Jan 2026",
     images: [
+      "/maggot-cover.svg",
+      "/og-maggot.png",
       "/maggot-arch.svg",
     ],
     imageFit: "contain",
@@ -124,6 +126,7 @@ export const PROJECTS: Project[] = [
       en: "Real-time on-device intervention plus a gamification layer that keeps users' learning consistent.",
     },
     images: [
+      "/og-focustalk.png",
       "/home%20ui.jpeg",
       "/home%20ui2.jpeg",
       "/home%20ui3.jpeg",
@@ -142,6 +145,8 @@ export const PROJECTS: Project[] = [
     link: "https://github.com/hilalmuhamad/hamim-master.git",
     role: "Mobile Developer Intern", date: "Jun – Sep 2026",
     images: [
+      "/hamim-cover.svg",
+      "/og-hamim.png",
       "/hamim-header.png",
       "/hamim-kursus.png",
       "/hamim-logo.png",

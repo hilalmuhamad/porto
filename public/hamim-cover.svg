@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" font-family="Manrope, Arial, sans-serif">
+  <defs>
+    <linearGradient id="hbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b0f0e"/>
+      <stop offset="1" stop-color="#131a17"/>
+    </linearGradient>
+    <radialGradient id="hglow" cx="0.78" cy="0.3" r="0.6">
+      <stop offset="0" stop-color="#34d399" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#34d399" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="mooncut">
+      <rect width="1200" height="750" fill="white"/>
+      <circle cx="985" cy="195" r="120" fill="black"/>
+    </mask>
+  </defs>
+  <rect width="1200" height="750" fill="url(#hbg)"/>
+  <g stroke="#ffffff" stroke-opacity="0.045">
+    <path d="M0 125h1200M0 250h1200M0 375h1200M0 500h1200M0 625h1200M200 0v750M400 0v750M600 0v750M800 0v750M1000 0v750"/>
+  </g>
+  <rect width="1200" height="750" fill="url(#hglow)"/>
+  <!-- crescent -->
+  <g mask="url(#mooncut)">
+    <circle cx="940" cy="230" r="120" fill="none" stroke="#34d399" stroke-opacity="0.9" stroke-width="26"/>
+  </g>
+  <g fill="#34d399">
+    <path d="M1010 420 l7 17 18 2 -13 13 3 18 -16 -9 -16 9 3 -18 -13 -13 18 -2 z" opacity="0.9"/>
+    <path d="M880 470 l5 12 13 2 -10 9 3 13 -11 -6 -11 6 2 -13 -9 -9 13 -2 z" opacity="0.55"/>
+  </g>
+
+  <text x="90" y="250" fill="#f4f4f5" font-size="92" font-weight="800" letter-spacing="6">HAMIM</text>
+  <text x="94" y="305" fill="#a1a1aa" font-size="30">Quran Memorization App · Flutter</text>
+  <rect x="90" y="345" width="120" height="6" rx="3" fill="#34d399"/>
+
+  <g font-size="24" font-weight="bold">
+    <rect x="90" y="400" width="300" height="58" rx="29" fill="#12211c" stroke="#34d399" stroke-opacity="0.45"/>
+    <text x="240" y="437" fill="#6ee7b7" text-anchor="middle">BLoC + Clean Arch</text>
+    <rect x="410" y="400" width="330" height="58" rx="29" fill="#12211c" stroke="#34d399" stroke-opacity="0.45"/>
+    <text x="575" y="437" fill="#6ee7b7" text-anchor="middle">Background Playback</text>
+    <rect x="90" y="474" width="250" height="58" rx="29" fill="#18181b" stroke="#3f3f46"/>
+    <text x="215" y="511" fill="#a1a1aa" text-anchor="middle">Google OAuth</text>
+    <rect x="360" y="474" width="220" height="58" rx="29" fill="#18181b" stroke="#3f3f46"/>
+    <text x="470" y="511" fill="#a1a1aa" text-anchor="middle">Offline-First</text>
+  </g>
+
+  <text x="90" y="620" fill="#52525b" font-size="22">Maqdis Academy · Mobile Developer Intern · Jun – Sep 2026</text>
+</svg>

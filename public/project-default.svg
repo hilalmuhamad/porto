@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+  <defs>
+    <linearGradient id="pdbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#101013"/>
+      <stop offset="1" stop-color="#17171b"/>
+    </linearGradient>
+    <radialGradient id="pdglow" cx="0.5" cy="0.42" r="0.55">
+      <stop offset="0" stop-color="#34d399" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="#34d399" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="750" fill="url(#pdbg)"/>
+  <g stroke="#ffffff" stroke-opacity="0.05">
+    <path d="M0 125h1200M0 250h1200M0 375h1200M0 500h1200M0 625h1200M200 0v750M400 0v750M600 0v750M800 0v750M1000 0v750"/>
+  </g>
+  <rect width="1200" height="750" fill="url(#pdglow)"/>
+  <g fill="none" stroke="#34d399" stroke-opacity="0.85" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M545 315 L485 375 L545 435"/>
+    <path d="M655 315 L715 375 L655 435"/>
+    <path d="M625 300 L575 450"/>
+  </g>
+  <g fill="#3f3f46">
+    <circle cx="540" cy="540" r="5"/>
+    <circle cx="575" cy="540" r="5"/>
+    <circle cx="610" cy="540" r="5"/>
+    <circle cx="645" cy="540" r="5"/>
+    <circle cx="680" cy="540" r="5"/>
+  </g>
+</svg>

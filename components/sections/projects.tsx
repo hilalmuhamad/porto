@@ -220,25 +220,37 @@ function ProjectCard({
       whileHover={reduce ? undefined : { y: -6 }}
       className="group flex flex-col overflow-hidden rounded-3xl bg-card shadow-card backdrop-blur-sm transition-shadow duration-300 hover:shadow-lift"
     >
-      {/* Tombol buka dialog (galeri + judul ringkas) */}
-      <button
-        type="button"
-        onClick={() => onOpen(project)}
-        aria-label={`${t.detail[lang]}: ${title}`}
-        className="flex flex-1 flex-col text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/60"
-      >
-        {images && images.length > 0 ? (
-          <Gallery images={images} title={title} fit={imageFit} interactive={false} />
-        ) : (
-          <div className="relative flex aspect-[16/10] items-center justify-center bg-elevated text-4xl">
-            <span aria-hidden>{project.emoji}</span>
+      {images && images.length > 0 ? (
+        <Gallery images={images} title={title} fit={imageFit} interactive />
+      ) : (
+        <button
+          type="button"
+          onClick={() => onOpen(project)}
+          aria-label={`${t.detail[lang]}: ${title}`}
+          className="relative block aspect-[16/10] w-full overflow-hidden bg-elevated focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/60"
+        >
+          <div className="relative aspect-[16/10] w-full overflow-hidden bg-elevated">
+            <Image
+              src="/project-default.svg"
+              alt=""
+              aria-hidden
+              fill
+              sizes="(max-width: 768px) 100vw, 640px"
+              className="object-cover"
+            />
             <span className="absolute top-3 left-3 rounded-full bg-overlay px-2.5 py-1 text-[0.62rem] font-bold tracking-[0.08em] text-ink-2 uppercase backdrop-blur-md">
               {label[lang]}
             </span>
           </div>
+          </button>
         )}
 
-        <div className="flex w-full flex-1 flex-col p-6 md:p-7">
+        <button
+          type="button"
+          onClick={() => onOpen(project)}
+          aria-label={`${t.detail[lang]}: ${title}`}
+          className="flex w-full flex-1 cursor-pointer flex-col p-6 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/60 md:p-7"
+        >
           <div className="mb-3 flex flex-wrap items-center gap-2">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-chip px-2.5 py-1 text-[0.65rem] font-semibold text-ink-2">
               <CalendarDays size={11} />
@@ -260,8 +272,7 @@ function ProjectCard({
             {t.detail[lang]}
             <span aria-hidden className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
           </span>
-        </div>
-      </button>
+        </button>
 
       {/* Aksi cepat */}
       <div className="flex flex-wrap items-center gap-3 border-t border-hairline px-6 py-4 md:px-7">
@@ -365,8 +376,15 @@ function ProjectDialog({
                 large
               />
             ) : (
-              <div className="relative flex aspect-[16/6] items-center justify-center bg-elevated text-5xl">
-                <span aria-hidden>{project.emoji}</span>
+              <div className="relative aspect-[16/6] w-full overflow-hidden bg-elevated">
+                <Image
+                  src="/project-default.svg"
+                  alt=""
+                  aria-hidden
+                  fill
+                  sizes="(max-width: 768px) 100vw, 900px"
+                  className="object-cover"
+                />
               </div>
             )}
 
