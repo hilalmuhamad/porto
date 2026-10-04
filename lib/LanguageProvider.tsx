@@ -186,6 +186,8 @@ export const STR = {
     close: { id: "Tutup", en: "Close" } as Record<Lang, string>,
     techUsed: { id: "Teknologi yang dipakai", en: "Tech stack used" } as Record<Lang, string>,
     dialogLabel: { id: "Detail proyek", en: "Project details" } as Record<Lang, string>,
+    diagram: { id: "Diagram Arsitektur", en: "Architecture Diagram" } as Record<Lang, string>,
+    illustration: { id: "Ilustrasi Aplikasi", en: "App Illustration" } as Record<Lang, string>,
     prev: { id: "Screenshot sebelumnya", en: "Previous screenshot" } as Record<Lang, string>,
     next: { id: "Screenshot berikutnya", en: "Next screenshot" } as Record<Lang, string>,
   },

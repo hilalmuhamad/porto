@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0c0c0e"/>
+      <stop offset="1" stop-color="#121316"/>
+    </linearGradient>
+    <linearGradient id="go" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#134e4a"/>
+      <stop offset="1" stop-color="#0f3a35"/>
+    </linearGradient>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 9 5 L 0 9" fill="none" stroke="#34d399" stroke-width="1.6"/>
+    </marker>
+    <marker id="arrZ" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 9 5 L 0 9" fill="none" stroke="#71717a" stroke-width="1.6"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <!-- subtle grid -->
+  <g stroke="#ffffff" stroke-opacity="0.04">
+    <path d="M0 90h1200M0 180h1200M0 270h1200M0 360h1200M0 450h1200M0 540h1200M120 0v630M240 0v630M360 0v630M480 0v630M600 0v630M720 0v630M840 0v630M960 0v630M1080 0v630"/>
+  </g>
+
+  <text x="60" y="72" fill="#f4f4f5" font-size="30" font-weight="bold" font-family="Manrope, Arial, sans-serif">Maggot Cycle — Distributed Backend</text>
+  <text x="60" y="102" fill="#71717a" font-size="16">Golang (Fiber) · Nginx LB · PostgreSQL Master-Slave · Podman</text>
+
+  <!-- Clients -->
+  <g>
+    <rect x="60" y="220" width="170" height="120" rx="14" fill="#18181b" stroke="#3f3f46"/>
+    <text x="145" y="262" fill="#f4f4f5" font-size="17" font-weight="bold" text-anchor="middle" font-family="Manrope, Arial, sans-serif">B2B Kitchens</text>
+    <text x="145" y="288" fill="#71717a" font-size="13" text-anchor="middle">hundreds of</text>
+    <text x="145" y="308" fill="#71717a" font-size="13" text-anchor="middle">partners</text>
+  </g>
+
+  <!-- WAF -->
+  <g>
+    <rect x="290" y="220" width="170" height="120" rx="14" fill="#18181b" stroke="#3f3f46"/>
+    <text x="375" y="262" fill="#f4f4f5" font-size="17" font-weight="bold" text-anchor="middle" font-family="Manrope, Arial, sans-serif">Cloudflare</text>
+    <text x="375" y="288" fill="#34d399" font-size="13" text-anchor="middle">WAF + JWT</text>
+    <text x="375" y="308" fill="#71717a" font-size="13" text-anchor="middle">Suricata · Fail2Ban</text>
+  </g>
+
+  <!-- Nginx -->
+  <g>
+    <rect x="520" y="220" width="170" height="120" rx="14" fill="#1c1917" stroke="#78716c"/>
+    <text x="605" y="262" fill="#f4f4f5" font-size="17" font-weight="bold" text-anchor="middle" font-family="Manrope, Arial, sans-serif">Nginx LB</text>
+    <text x="605" y="288" fill="#71717a" font-size="13" text-anchor="middle">load balancer</text>
+    <text x="605" y="308" fill="#71717a" font-size="13" text-anchor="middle">horizontal scaling</text>
+  </g>
+
+  <!-- Go instances -->
+  <g>
+    <rect x="750" y="160" width="170" height="100" rx="14" fill="url(#go)" stroke="#34d399" stroke-opacity="0.5"/>
+    <text x="835" y="198" fill="#f4f4f5" font-size="16" font-weight="bold" text-anchor="middle" font-family="Manrope, Arial, sans-serif">Go Fiber #1</text>
+    <text x="835" y="222" fill="#6ee7b7" font-size="12" text-anchor="middle">Podman container</text>
+    <rect x="750" y="280" width="170" height="100" rx="14" fill="url(#go)" stroke="#34d399" stroke-opacity="0.5"/>
+    <text x="835" y="318" fill="#f4f4f5" font-size="16" font-weight="bold" text-anchor="middle" font-family="Manrope, Arial, sans-serif">Go Fiber #2</text>
+    <text x="835" y="342" fill="#6ee7b7" font-size="12" text-anchor="middle">Podman container</text>
+  </g>
+
+  <!-- DBs -->
+  <g>
+    <rect x="980" y="160" width="160" height="100" rx="14" fill="#172554" stroke="#60a5fa" stroke-opacity="0.55"/>
+    <text x="1060" y="198" fill="#f4f4f5" font-size="16" font-weight="bold" text-anchor="middle" font-family="Manrope, Arial, sans-serif">PG Master</text>
+    <text x="1060" y="222" fill="#93c5fd" font-size="12" text-anchor="middle">read / write</text>
+    <rect x="980" y="280" width="160" height="100" rx="14" fill="#172554" stroke="#60a5fa" stroke-opacity="0.35"/>
+    <text x="1060" y="318" fill="#f4f4f5" font-size="16" font-weight="bold" text-anchor="middle" font-family="Manrope, Arial, sans-serif">PG Slave</text>
+    <text x="1060" y="342" fill="#93c5fd" font-size="12" text-anchor="middle">replication</text>
+  </g>
+
+  <!-- Arrows -->
+  <line x1="230" y1="280" x2="284" y2="280" stroke="#34d399" stroke-width="1.6" marker-end="url(#arr)"/>
+  <line x1="460" y1="280" x2="514" y2="280" stroke="#34d399" stroke-width="1.6" marker-end="url(#arr)"/>
+  <line x1="690" y1="265" x2="744" y2="215" stroke="#34d399" stroke-width="1.6" marker-end="url(#arr)"/>
+  <line x1="690" y1="295" x2="744" y2="335" stroke="#34d399" stroke-width="1.6" marker-end="url(#arr)"/>
+  <line x1="920" y1="210" x2="974" y2="210" stroke="#71717a" stroke-width="1.6" marker-end="url(#arrZ)"/>
+  <line x1="920" y1="330" x2="974" y2="330" stroke="#71717a" stroke-width="1.6" marker-end="url(#arrZ)"/>
+  <line x1="1060" y1="260" x2="1060" y2="274" stroke="#60a5fa" stroke-width="1.6" marker-end="url(#arrZ)"/>
+
+  <!-- Badges -->
+  <g font-size="15" font-weight="bold">
+    <rect x="60" y="440" width="150" height="44" rx="22" fill="#052e22" stroke="#34d399" stroke-opacity="0.5"/>
+    <text x="135" y="468" fill="#34d399" text-anchor="middle">0% error</text>
+    <rect x="226" y="440" width="170" height="44" rx="22" fill="#052e22" stroke="#34d399" stroke-opacity="0.5"/>
+    <text x="311" y="468" fill="#34d399" text-anchor="middle">RPO ~ 0</text>
+    <rect x="412" y="440" width="170" height="44" rx="22" fill="#052e22" stroke="#34d399" stroke-opacity="0.5"/>
+    <text x="497" y="468" fill="#34d399" text-anchor="middle">RTO &lt; 1h</text>
+    <rect x="598" y="440" width="250" height="44" rx="22" fill="#18181b" stroke="#3f3f46"/>
+    <text x="723" y="468" fill="#a1a1aa" text-anchor="middle">Nmap: 0 exposed ports</text>
+  </g>
+
+  <text x="60" y="560" fill="#52525b" font-size="14">Requests → WAF → LB → dual Go services → PostgreSQL master-slave replication · Tailscale VPN for private access</text>
+</svg>

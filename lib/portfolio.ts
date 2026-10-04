@@ -36,6 +36,8 @@ export type Project = {
   /* "cover" = penuhi bingkai, "contain" = tampil utuh tanpa terpotong (default) */
   imageFit?: "cover" | "contain";
   demo?: string;
+  /* Cover art diagram/ilustrasi kode untuk proyek tanpa screenshot */
+  cover?: "maggot-arch" | "hamim-app";
 };
 
 /* Proyek yang ditampilkan sebagai kartu */
@@ -81,6 +83,10 @@ export const PROJECTS: Project[] = [
     },
     link: "https://github.com/bpmthm/maggot-cycle",
     role: "Backend / Infra Engineer", date: "Jan 2026",
+    images: [
+      "/maggot-arch.svg",
+    ],
+    imageFit: "contain",
     problem: {
       id: "Laporan sampah organik dari ratusan dapur mitra B2B harus tetap masuk saat trafik memuncak.",
       en: "Organic waste reports from hundreds of B2B partner kitchens had to keep flowing during peak traffic.",
@@ -93,6 +99,7 @@ export const PROJECTS: Project[] = [
       id: "Load test 0% error, RPO mendekati nol & RTO <1 jam, 0 port internal terekspos (verifikasi Nmap).",
       en: "Load test 0% error, near-zero RPO & RTO <1 hour, 0 internal ports exposed (Nmap verified).",
     },
+    cover: "maggot-arch",
   },
   {
     emoji: "📱", label: { id: "Mobile · Flutter — BLoC / Clean Arch", en: "Mobile · Flutter — BLoC / Clean Arch" },
@@ -134,6 +141,12 @@ export const PROJECTS: Project[] = [
     },
     link: "https://github.com/hilalmuhamad/hamim-master.git",
     role: "Mobile Developer Intern", date: "Jun – Sep 2026",
+    images: [
+      "/hamim-header.png",
+      "/hamim-kursus.png",
+      "/hamim-logo.png",
+    ],
+    imageFit: "contain",
     problem: {
       id: "State management setState ad-hoc menyebabkan widget rebuild berlebih dan transisi kaku di aplikasi produksi.",
       en: "Ad-hoc setState management caused excessive widget rebuilds and stiff transitions in the production app.",
