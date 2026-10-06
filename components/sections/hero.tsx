@@ -191,10 +191,10 @@ export default function Hero() {
           <motion.h1
             variants={reduce ? undefined : item}
             style={{ fontFamily: "'Playfair Display', serif" }}
-            className="text-5xl leading-[1.02] tracking-tight text-ink sm:text-7xl md:text-8xl"
+            className="text-5xl leading-[1.02] tracking-tight text-zinc-100 sm:text-7xl md:text-8xl"
           >
-            <span className="bg-gradient-to-br from-[var(--ink)] via-[var(--ink)] to-[var(--ink-2)] bg-clip-text font-black text-transparent">Hilal</span>{" "}
-            <span className="bg-gradient-to-br from-emerald-300 via-emerald-400 to-emerald-600 bg-clip-text font-bold italic text-transparent">Muhamad</span>
+            <span className="font-black">Hilal</span>{" "}
+            <span className="font-bold italic">Muhamad</span>
           </motion.h1>
 
           {/* 3. Role berganti satu per satu + titik navigasi */}
