@@ -14,7 +14,7 @@ export const PROFILE = {
   email: "hilalabdulgani@gmail.com",
   github: "https://github.com/hilalmuhamad",
   linkedin: "https://www.linkedin.com/in/hilal-muhamad/",
-  cvUrl: "/CV_Hilal%20Muhamad%20Abdul%20Gani.pdf",
+  cvUrl: "/CV_Hilal%20Muhamad%20Abdul%20Gani%20revisi.pdf",
 } as const;
 
 export type Project = {
