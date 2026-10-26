@@ -240,7 +240,16 @@ export default function Hero() {
 
           {/* 4. Short Bio / Value Proposition */}
           <motion.p variants={reduce ? undefined : item} className="mt-6 max-w-2xl text-sm leading-relaxed text-ink-2 md:text-base">
-            {t.bio[lang]}
+            {t.bio[lang]}{" "}
+            {t.bioPortfolio[lang]}{" "}
+            <a
+              href="https://hilalmuhamad.my.id/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-ink underline underline-offset-4"
+            >
+              https://hilalmuhamad.my.id/
+            </a>
           </motion.p>
 
           {/* 5. CTA — magnetik */}
